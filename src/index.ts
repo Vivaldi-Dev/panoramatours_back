@@ -10,7 +10,7 @@ const PORT = 4000;
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://139.162.169.48:3000',
+  origin: 'https://panoramatours.co.mz',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true 
 }));
