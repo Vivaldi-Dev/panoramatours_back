@@ -20,7 +20,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 
-
 app.get("/amadeus-token", async (req: Request, res: Response) => {
   try {
     const token = await getAmadeusAccessToken();
