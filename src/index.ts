@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import { getAmadeusAccessToken } from "./services/amadeusAuth";
 import { searchFlights } from "./services/searchFlights";
-import { searchAirports } from "./services/searchAirports"; // Importação adicionada
+import { searchAirports } from "./services/searchAirports"; 
 import airportRoutes from "./routes/routes";
 
 const app: Express = express();
@@ -10,7 +10,7 @@ const PORT = 4000;
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://139.162.169.48:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true 
 }));
