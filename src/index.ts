@@ -17,6 +17,7 @@ app.use(cors({
 
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
+  
 });
 
 
@@ -41,7 +42,7 @@ app.post('/api/search-flights', async (req: Request, res: Response) => {
       adults: parseInt(adultos),
       children: parseInt(criancas || 0),
       nonStop: false,
-      max: 5,
+      max: 100,
       currencyCode: 'MZN'
     });
 
