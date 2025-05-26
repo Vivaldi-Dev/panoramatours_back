@@ -49,7 +49,7 @@ app.post('/api/search-flights', (req, res) => __awaiter(void 0, void 0, void 0, 
             adults: parseInt(adultos),
             children: parseInt(criancas || 0),
             nonStop: false,
-            max: 5,
+            max: 100,
             currencyCode: 'MZN'
         });
         res.json(data);
