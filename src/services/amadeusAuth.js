@@ -14,24 +14,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAmadeusAccessToken = getAmadeusAccessToken;
 const axios_1 = __importDefault(require("axios"));
-const AMADEUS_CLIENT_ID = 'yOrSWqfAFVlYLieWRC1xvS6T0VUlhKJK';
-const AMADEUS_CLIENT_SECRET = '3B5gT2uUKTOuWdRU';
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 function getAmadeusAccessToken() {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         try {
-            const response = yield axios_1.default.post('https://test.api.amadeus.com/v1/security/oauth2/token', new URLSearchParams({
+            const params = new URLSearchParams({
                 grant_type: 'client_credentials',
-                client_id: AMADEUS_CLIENT_ID,
-                client_secret: AMADEUS_CLIENT_SECRET
-            }), {
+                client_id: process.env.AMADEUS_CLIENT_ID,
+                client_secret: process.env.AMADEUS_CLIENT_SECRET,
+            });
+            const response = yield axios_1.default.post('https://test.api.amadeus.com/v1/security/oauth2/token', params.toString(), {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
             });
             return response.data.access_token;
         }
         catch (error) {
-            console.error('Erro ao obter token da Amadeus:', error);
+            console.error('Erro ao obter token da Amadeus:', ((_a = error.response) === null || _a === void 0 ? void 0 : _a.data) || error.message);
             throw new Error('Falha na autenticação com a Amadeus');
         }
     });

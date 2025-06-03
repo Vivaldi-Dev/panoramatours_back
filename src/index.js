@@ -21,7 +21,7 @@ const app = (0, express_1.default)();
 const PORT = 4000;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:3000',
+    origin: 'https://panoramatours.co.mz',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
