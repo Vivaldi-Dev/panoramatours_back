@@ -17,6 +17,7 @@ const cors_1 = __importDefault(require("cors"));
 const amadeusAuth_1 = require("./services/amadeusAuth");
 const searchFlights_1 = require("./services/searchFlights");
 const routes_1 = __importDefault(require("./routes/routes"));
+const cityActivity_1 = __importDefault(require("./routes/cityActivity"));
 const app = (0, express_1.default)();
 const PORT = 4000;
 app.use(express_1.default.json());
@@ -28,6 +29,7 @@ app.use((0, cors_1.default)({
 app.get("/", (req, res) => {
     res.send("odoo");
 });
+app.use('/api', cityActivity_1.default);
 app.get("/amadeus-token", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = yield (0, amadeusAuth_1.getAmadeusAccessToken)();
