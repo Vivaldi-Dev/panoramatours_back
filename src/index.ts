@@ -2,8 +2,9 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import { getAmadeusAccessToken } from "./services/amadeusAuth";
 import { searchFlights } from "./services/searchFlights";
-import { searchAirports } from "./services/searchAirports"; 
 import airportRoutes from "./routes/routes";
+import routeractivities from "./routes/cityActivity";
+
 
 const app: Express = express();
 const PORT = 4000;
@@ -19,6 +20,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
   
 });
+
+app.use('/api', routeractivities); 
 
 
 app.get("/amadeus-token", async (req: Request, res: Response) => {
