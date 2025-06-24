@@ -8,6 +8,7 @@ import path from "path";
 
 import carRoutes from "./routes/carRoutes";
 import { PrismaClient } from "./generated/prisma";
+import Rentrouter from "./routes/rentACarRoutes";
 
 const app: Express = express();
 const PORT = 4000;
@@ -33,6 +34,10 @@ app.get("/", (req: Request, res: Response) => {
 app.use('/api', routeractivities); 
 
 //aqui push
+
+
+app.use('/api', Rentrouter); 
+
 
 app.get("/amadeus-token", async (req: Request, res: Response) => {
   try {
