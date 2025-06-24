@@ -4,10 +4,17 @@ import { getAmadeusAccessToken } from "./services/amadeusAuth";
 import { searchFlights } from "./services/searchFlights";
 import airportRoutes from "./routes/routes";
 import routeractivities from "./routes/cityActivity";
+import path from "path";
 
+import carRoutes from "./routes/carRoutes";
+import { PrismaClient } from "./generated/prisma";
 
 const app: Express = express();
 const PORT = 4000;
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use('/api', carRoutes);
 
 app.use(express.json());
 app.use(cors({
@@ -20,6 +27,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
   
 });
+
 
 app.use('/api', routeractivities); 
 
@@ -56,6 +64,10 @@ app.post('/api/search-flights', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Erro ao buscar voos' });
   }
 });
+
+export const primaClient = new PrismaClient({
+    log:['query']
+})
 
 
 app.use('/api',airportRoutes)
