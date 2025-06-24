@@ -23,6 +23,7 @@ app.use(cors({
   credentials: true 
 }));
 
+
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
   
@@ -31,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use('/api', routeractivities); 
 
+//aqui push
 
 app.get("/amadeus-token", async (req: Request, res: Response) => {
   try {
