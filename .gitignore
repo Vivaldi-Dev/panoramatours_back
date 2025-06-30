@@ -1,5 +1,6 @@
 .env
 node_modules/
+prisma/dev.db
 
 /src/generated/prisma
 /src/uploads
