@@ -34,3 +34,19 @@ model RentACar {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
+
+model Activity {
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String?
+  date        DateTime      @default(now())
+  price       Float
+  photos      ActivityPhoto[]
+}
+
+model ActivityPhoto {
+  id         Int      @id @default(autoincrement())
+  url        String
+  activityId Int
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+}
