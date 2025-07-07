@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listCars = exports.createCar = void 0;
+exports.findCarByName = exports.listCars = exports.createCar = void 0;
 const prisma_1 = require("../generated/prisma");
 const prisma = new prisma_1.PrismaClient();
 const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,3 +41,26 @@ const listCars = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.listCars = listCars;
+const findCarByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { model } = req.query;
+    if (!model || typeof model !== 'string') {
+        res.status(400).json({ error: 'O parâmetro "model" é obrigatório e deve ser uma string.' });
+        return;
+    }
+    try {
+        const searchModel = model.toLowerCase();
+        const cars = yield prisma.car.findMany({
+            where: {
+                model: {
+                    contains: searchModel,
+                },
+            },
+        });
+        res.json(cars);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erro ao buscar carro pelo modelo." });
+    }
+});
+exports.findCarByName = findCarByName;

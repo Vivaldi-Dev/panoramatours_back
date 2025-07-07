@@ -15,4 +15,5 @@ const storage = multer_1.default.diskStorage({
 const upload = (0, multer_1.default)({ storage });
 carRoutes.post("/cars", upload.single("image"), carController_1.createCar);
 carRoutes.get("/cars", carController_1.listCars);
+carRoutes.get('/cars/find', carController_1.findCarByName);
 exports.default = carRoutes;

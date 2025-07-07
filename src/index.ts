@@ -25,10 +25,8 @@ app.use(cors({
   credentials: true 
 }));
 
-
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
-  
 });
 
 app.use('/api', routeractivities); 

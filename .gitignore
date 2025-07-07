@@ -1,6 +1,23 @@
-.env
 node_modules/
-prisma/dev.db
 
-/src/generated/prisma
+.env
+
+prisma/dev.db
+prisma/dev.db-journal
+
 /src/uploads
+/src/generated/prisma
+
+dist/
+build/
+
+*.ts
+*.tsx
+
+*.log
+
+*.tsbuildinfo
+
+.DS_Store
+.idea/
+.vscode/
