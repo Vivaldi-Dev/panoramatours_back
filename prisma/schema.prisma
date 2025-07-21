@@ -10,36 +10,44 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite" 
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
- 
+
 model Car {
-  id          Int        @id @default(autoincrement())
-  model       String
-  description String
-  image       String
-  rents       RentACar[]
-  createdAt   DateTime   @default(now())
+  id           Int        @id @default(autoincrement())
+  model        String
+  description  String
+  image        String
+  rents        RentACar[]
+  createdAt    DateTime   @default(now())
+  mileage      Int 
+  fuel         String 
+  engine       String 
+  seats        Int 
+  doors        Int 
+  year         Int 
+  transmission String 
+  price        Float 
 }
 
 model RentACar {
-  id               Int      @id @default(autoincrement())
-  carId            Int
-  car              Car      @relation(fields: [carId], references: [id]) 
-  pickupLocation   String
-  dropoffLocation  String
-  pickupDate       DateTime
-  dropoffDate      DateTime
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  carId           Int
+  car             Car      @relation(fields: [carId], references: [id])
+  pickupLocation  String
+  dropoffLocation String
+  pickupDate      DateTime
+  dropoffDate     DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Activity {
-  id          Int           @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   title       String
   description String?
-  date        DateTime      @default(now())
+  date        DateTime        @default(now())
   price       Float
   photos      ActivityPhoto[]
 }
