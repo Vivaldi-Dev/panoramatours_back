@@ -36,7 +36,7 @@ const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 price: parseFloat(price)
             },
         });
-        res.json(car);
+        res.status(201).json(car);
     }
     catch (error) {
         console.error(error);
