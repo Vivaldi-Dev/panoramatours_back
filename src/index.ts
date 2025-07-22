@@ -16,14 +16,14 @@ const PORT = 4000;
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/api', carRoutes);
-
 app.use(express.json());
 app.use(cors({
   origin: 'https://panoramatours.co.mz',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true 
 }));
+
+app.use('/api', carRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");

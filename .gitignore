@@ -11,8 +11,6 @@ prisma/dev.db-journal
 dist/
 build/
 
-*.ts
-*.tsx
 
 *.log
 

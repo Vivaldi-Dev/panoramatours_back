@@ -27,13 +27,13 @@ const activityRoutes_1 = __importDefault(require("./routes/activityRoutes"));
 const app = (0, express_1.default)();
 const PORT = 4000;
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
-app.use('/api', carRoutes_1.default);
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     origin: 'https://panoramatours.co.mz',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
+app.use('/api', carRoutes_1.default);
 app.get("/", (req, res) => {
     res.send("odoo");
 });

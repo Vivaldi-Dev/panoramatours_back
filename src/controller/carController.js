@@ -13,7 +13,12 @@ exports.findCarByName = exports.listCars = exports.createCar = void 0;
 const prisma_1 = require("../generated/prisma");
 const prisma = new prisma_1.PrismaClient();
 const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { model, description } = req.body;
+    const { model, description, mileage, fuel, engine, seats, doors, year, transmission, price } = req.body;
+    console.log('data:', req.body);
+    if (!model || !description || !mileage || !fuel || !engine || !seats || !doors || !year || !transmission || !price) {
+        res.status(400).json({ error: "Todos os campos são obrigatórios." });
+        return;
+    }
     const image = req.file ? `/uploads/${req.file.filename}` : null;
     try {
         const car = yield prisma.car.create({
@@ -21,13 +26,24 @@ const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 model,
                 description,
                 image: image || '',
+                mileage: parseInt(mileage),
+                fuel,
+                engine,
+                seats: parseInt(seats),
+                doors: parseInt(doors),
+                year: parseInt(year),
+                transmission,
+                price: parseFloat(price)
             },
         });
         res.json(car);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Erro ao criar carro." });
+        res.status(500).json({
+            error: "Erro ao criar carrosssss.",
+            details: error.message || error
+        });
     }
 });
 exports.createCar = createCar;
