@@ -17,7 +17,7 @@ interface SearchParams {
 export async function searchFlights(params: SearchParams) {
   try {
     const token = await getAmadeusAccessToken();
-     console.log("dkfjdskgfgjksdgsdf token",token)
+     console.log(" token",token)
     const response = await axios.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
       headers: {
         Authorization: `Bearer ${token}`,
