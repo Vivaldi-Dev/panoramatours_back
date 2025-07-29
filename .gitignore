@@ -5,8 +5,8 @@ node_modules/
 prisma/dev.db
 prisma/dev.db-journal
 
-# /src/uploads
-# /src/generated/prisma
+/src/uploads
+/src/generated/prisma
 
 dist/
 build/
