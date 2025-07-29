@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findCarByName = exports.listCars = exports.createCar = void 0;
+exports.updateCar = exports.deleteCar = exports.findCarByName = exports.listCars = exports.createCar = void 0;
 const prisma_1 = require("../generated/prisma");
 const prisma = new prisma_1.PrismaClient();
+// Criar carro
 const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { model, description, mileage, fuel, engine, seats, doors, year, transmission, price } = req.body;
-    console.log('data:', req.body);
     if (!model || !description || !mileage || !fuel || !engine || !seats || !doors || !year || !transmission || !price) {
         res.status(400).json({ error: "Todos os campos são obrigatórios." });
         return;
@@ -41,7 +41,7 @@ const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         console.error(error);
         res.status(500).json({
-            error: "Erro ao criar carrosssss.",
+            error: "Erro ao criar carro.",
             details: error.message || error
         });
     }
@@ -64,11 +64,10 @@ const findCarByName = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return;
     }
     try {
-        const searchModel = model.toLowerCase();
         const cars = yield prisma.car.findMany({
             where: {
                 model: {
-                    contains: searchModel,
+                    contains: model.toLowerCase()
                 },
             },
         });
@@ -80,3 +79,32 @@ const findCarByName = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.findCarByName = findCarByName;
+const deleteCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        yield prisma.car.delete({
+            where: { id: parseInt(id) }
+        });
+        res.json({ message: "Carro deletado com sucesso." });
+    }
+    catch (error) {
+        res.status(500).json({ error: "Erro ao deletar carro." });
+    }
+});
+exports.deleteCar = deleteCar;
+const updateCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const { model, description, mileage, fuel, engine, seats, doors, year, transmission, price } = req.body;
+    const image = req.file ? `/uploads/${req.file.filename}` : undefined;
+    try {
+        const updatedCar = yield prisma.car.update({
+            where: { id: parseInt(id) },
+            data: Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (model && { model })), (description && { description })), (mileage && { mileage: parseInt(mileage) })), (fuel && { fuel })), (engine && { engine })), (seats && { seats: parseInt(seats) })), (doors && { doors: parseInt(doors) })), (year && { year: parseInt(year) })), (transmission && { transmission })), (price && { price: parseFloat(price) })), (image && { image })),
+        });
+        res.json(updatedCar);
+    }
+    catch (error) {
+        res.status(500).json({ error: "Erro ao atualizar carro." });
+    }
+});
+exports.updateCar = updateCar;

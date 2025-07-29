@@ -20,7 +20,7 @@ const getActivitiesByCity = (req, res) => __awaiter(void 0, void 0, void 0, func
             return;
         }
         const activities = yield cityActivityService.getActivitiesByCity(keyword, typeof countryCode === 'string' ? countryCode : undefined, radius ? parseInt(radius) : 5);
-        res.status(200).json(activities); // Retorna exatamente o array de atividades
+        res.status(200).json(activities);
     }
     catch (error) {
         console.error('Erro no controller:', error);

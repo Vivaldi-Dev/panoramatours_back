@@ -16,4 +16,6 @@ const upload = (0, multer_1.default)({ storage });
 carRoutes.post("/cars", upload.single("image"), carController_1.createCar);
 carRoutes.get("/cars", carController_1.listCars);
 carRoutes.get('/cars/find', carController_1.findCarByName);
+carRoutes.delete('/carros/:id', carController_1.deleteCar);
+carRoutes.put('/carros/:id', upload.single('image'), carController_1.updateCar);
 exports.default = carRoutes;

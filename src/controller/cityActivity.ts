@@ -18,7 +18,7 @@ export const getActivitiesByCity = async (req: Request, res: Response): Promise<
       radius ? parseInt(radius as string) : 5
     );
 
-    res.status(200).json(activities); // Retorna exatamente o array de atividades
+    res.status(200).json(activities);
   } catch (error) {
     console.error('Erro no controller:', error);
     res.status(500).json({ 

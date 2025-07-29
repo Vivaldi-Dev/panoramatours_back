@@ -19,7 +19,7 @@ function searchFlights(params) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const token = yield (0, amadeusAuth_1.getAmadeusAccessToken)();
-            console.log("dkfjdskgfgjksdgsdf token", token);
+            console.log(" token", token);
             const response = yield axios_1.default.get('https://test.api.amadeus.com/v2/shopping/flight-offers', {
                 headers: {
                     Authorization: `Bearer ${token}`,
