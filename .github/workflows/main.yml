@@ -1,30 +1,29 @@
-name: Deploy to Server
+name: Deploy Backend on Push to Main
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 
 jobs:
-  deploy:
-    if: github.event.pull_request.merged == true
+  deploy-backend:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /var/www/atlantictravel/atlantictravel/atlantictravel
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy backend to server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << EOF
+            cd /var/www/panoramatours/backend
             git pull origin main
             npm install
-            npm run build
-            pm2 restart atlantic
+            pm2 restart panoramatours-backend || pm2 start src/index.js --name "panoramatours-backend"
+            pm2 save
+          EOF
