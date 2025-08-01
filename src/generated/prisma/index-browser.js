@@ -158,6 +158,39 @@ exports.Prisma.ActivityPhotoScalarFieldEnum = {
   activityId: 'activityId'
 };
 
+exports.Prisma.TourPackageScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  peopleCount: 'peopleCount',
+  audienceType: 'audienceType',
+  nightsCount: 'nightsCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TourPhotoScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  tourPackageId: 'tourPackageId'
+};
+
+exports.Prisma.TourHighlightScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  tourPackageId: 'tourPackageId'
+};
+
+exports.Prisma.LocationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  type: 'type',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -173,7 +206,11 @@ exports.Prisma.ModelName = {
   Car: 'Car',
   RentACar: 'RentACar',
   Activity: 'Activity',
-  ActivityPhoto: 'ActivityPhoto'
+  ActivityPhoto: 'ActivityPhoto',
+  TourPackage: 'TourPackage',
+  TourPhoto: 'TourPhoto',
+  TourHighlight: 'TourHighlight',
+  Location: 'Location'
 };
 
 /**

@@ -10,6 +10,7 @@ import carRoutes from "./routes/carRoutes";
 import { PrismaClient } from "./generated/prisma";
 import Rentrouter from "./routes/rentACarRoutes";
 import Routeractivities from "./routes/activityRoutes";
+import PackageRouter from "./routes/PackageRoutes";
 
 const app: Express = express();
 const PORT = 4000;
@@ -35,6 +36,8 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/api', Routeractivities);
 
 app.use('/api', Rentrouter); 
+
+app.use('/api', PackageRouter); 
 
 app.get("/amadeus-token", async (req: Request, res: Response) => {
   try {

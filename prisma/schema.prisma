@@ -58,3 +58,42 @@ model ActivityPhoto {
   activityId Int
   activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
 }
+
+model TourPackage {
+  id              Int             @id @default(autoincrement())
+  title           String
+  description     String?
+  price           Float
+  peopleCount     Int
+  audienceType    String
+  nightsCount     Int
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  photos          TourPhoto[]
+  highlights      TourHighlight[]  
+}
+
+model TourPhoto {
+  id             Int          @id @default(autoincrement())
+  url            String
+  tourPackageId  Int
+  tourPackage    TourPackage  @relation(fields: [tourPackageId], references: [id], onDelete: Cascade)
+}
+
+model TourHighlight {
+  id             Int          @id @default(autoincrement())
+  text           String
+  tourPackageId  Int
+  tourPackage    TourPackage  @relation(fields: [tourPackageId], references: [id], onDelete: Cascade)
+}
+
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  latitude  Float?
+  longitude Float?
+  type      String   
+  createdAt DateTime @default(now())
+}
+
