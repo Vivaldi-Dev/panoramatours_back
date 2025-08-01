@@ -5,12 +5,13 @@ import { searchFlights } from "./services/searchFlights";
 import airportRoutes from "./routes/routes";
 import routeractivities from "./routes/cityActivity";
 import path from "path";
-
 import carRoutes from "./routes/carRoutes";
 import { PrismaClient } from "./generated/prisma";
 import Rentrouter from "./routes/rentACarRoutes";
 import Routeractivities from "./routes/activityRoutes";
 import PackageRouter from "./routes/PackageRoutes";
+import RouterLocations from "./routes/location.routes";
+
 
 const app: Express = express();
 const PORT = 4000;
@@ -25,6 +26,8 @@ app.use(cors({
 }));
 
 app.use('/api', carRoutes);
+
+app.use('/api', RouterLocations);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
@@ -75,7 +78,6 @@ app.post('/api/search-flights', async (req: Request, res: Response) => {
 export const primaClient = new PrismaClient({
     log:['query']
 })
-
 
 app.use('/api',airportRoutes)
 
