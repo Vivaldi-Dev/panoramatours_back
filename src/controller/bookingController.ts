@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { sendBookingEmail } from '../utils/emailService';
+import dotenv from 'dotenv';
 
 interface BookingRequest extends Request {
   body: {
@@ -22,7 +23,11 @@ interface BookingRequest extends Request {
   };
 }
 
+
+
+
 export const createBooking = async (req: BookingRequest, res: Response): Promise<void> => {
+  
   try {
     await sendBookingEmail(req.body);
     res.status(200).json({ 

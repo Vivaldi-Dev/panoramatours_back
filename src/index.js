@@ -85,3 +85,7 @@ app.use('/api', routes_1.default);
 app.listen(PORT, () => {
     console.log(`App rodando na porta ${PORT}`);
 });
+app.get("/teste", (req, res) => {
+    console.log('EMAIL_USER:', process.env.EMAIL_USER);
+    console.log('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD ? '*** (definida)' : 'NÃO DEFINIDA');
+});

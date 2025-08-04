@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(cors({
   origin: 'https://panoramatours.co.mz',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true 
+  credentials: true
 }));
 
 app.use('/api', carRoutes);
@@ -37,14 +37,14 @@ app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
 });
 
-app.use('/api', routeractivities); 
+app.use('/api', routeractivities);
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/api', Routeractivities);
 
-app.use('/api', Rentrouter); 
+app.use('/api', Rentrouter);
 
-app.use('/api', PackageRouter); 
+app.use('/api', PackageRouter);
 
 app.get("/amadeus-token", async (req: Request, res: Response) => {
   try {
@@ -71,7 +71,7 @@ app.post('/api/search-flights', async (req: Request, res: Response) => {
       currencyCode: 'MZN'
     });
 
-    
+
     res.json(data);
   } catch (err) {
     console.error(err);
@@ -80,11 +80,20 @@ app.post('/api/search-flights', async (req: Request, res: Response) => {
 });
 
 export const primaClient = new PrismaClient({
-    log:['query']
+  log: ['query']
 })
 
-app.use('/api',airportRoutes)
+app.use('/api', airportRoutes)
 
 app.listen(PORT, () => {
   console.log(`App rodando na porta ${PORT}`);
+});
+
+
+app.get("/teste", (req: Request, res: Response) => {
+
+  console.log(`EMAIL_USER RAW: "${process.env.EMAIL_USER}"`);
+  console.log(`EMAIL_PASSWORD RAW: "${process.env.EMAIL_PASSWORD}"`);
+
+
 });

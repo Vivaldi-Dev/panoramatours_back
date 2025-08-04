@@ -13,10 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendBookingEmail = void 0;
-// utils/emailService.ts
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
+// Adicione este log para verificar as credenciais
+console.log('EMAIL_USER:', process.env.EMAIL_USER);
+console.log('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD ? '*** (definida)' : 'NÃO DEFINIDA');
 const transporter = nodemailer_1.default.createTransport({
     host: "mail.atlantictravel.co.mz",
     port: 465,
