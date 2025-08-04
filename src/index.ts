@@ -11,6 +11,7 @@ import Rentrouter from "./routes/rentACarRoutes";
 import Routeractivities from "./routes/activityRoutes";
 import PackageRouter from "./routes/PackageRoutes";
 import RouterLocations from "./routes/location.routes";
+import Emailrouter from "./routes/EmailRoutes";
 
 
 const app: Express = express();
@@ -28,6 +29,9 @@ app.use(cors({
 app.use('/api', carRoutes);
 
 app.use('/api', RouterLocations);
+
+app.use('/api', Emailrouter);
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
