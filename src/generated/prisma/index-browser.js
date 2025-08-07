@@ -152,6 +152,12 @@ exports.Prisma.ActivityScalarFieldEnum = {
   price: 'price'
 };
 
+exports.Prisma.HighlightScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  activityId: 'activityId'
+};
+
 exports.Prisma.ActivityPhotoScalarFieldEnum = {
   id: 'id',
   url: 'url',
@@ -206,6 +212,7 @@ exports.Prisma.ModelName = {
   Car: 'Car',
   RentACar: 'RentACar',
   Activity: 'Activity',
+  Highlight: 'Highlight',
   ActivityPhoto: 'ActivityPhoto',
   TourPackage: 'TourPackage',
   TourPhoto: 'TourPhoto',

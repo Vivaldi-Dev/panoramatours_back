@@ -50,6 +50,14 @@ model Activity {
   date        DateTime        @default(now())
   price       Float
   photos      ActivityPhoto[]
+  highlights  Highlight[]
+}
+
+model Highlight {
+  id         Int      @id @default(autoincrement())
+  text       String
+  activity   Activity @relation(fields: [activityId], references: [id])
+  activityId Int
 }
 
 model ActivityPhoto {

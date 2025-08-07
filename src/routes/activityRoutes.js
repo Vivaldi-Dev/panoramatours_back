@@ -10,4 +10,5 @@ const Routeractivities = express_1.default.Router();
 Routeractivities.post('/actidades', upload_1.upload.array('photos'), activityController_1.createActivity);
 Routeractivities.get('/actidades', activityController_1.getActivities);
 Routeractivities.get('/activities/:id', activityController_1.getActivityById);
+Routeractivities.delete('/actidades/:id', activityController_1.deleteActivityById);
 exports.default = Routeractivities;

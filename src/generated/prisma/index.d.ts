@@ -29,6 +29,11 @@ export type RentACar = $Result.DefaultSelection<Prisma.$RentACarPayload>
  */
 export type Activity = $Result.DefaultSelection<Prisma.$ActivityPayload>
 /**
+ * Model Highlight
+ * 
+ */
+export type Highlight = $Result.DefaultSelection<Prisma.$HighlightPayload>
+/**
  * Model ActivityPhoto
  * 
  */
@@ -208,6 +213,16 @@ export class PrismaClient<
     * ```
     */
   get activity(): Prisma.ActivityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.highlight`: Exposes CRUD operations for the **Highlight** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Highlights
+    * const highlights = await prisma.highlight.findMany()
+    * ```
+    */
+  get highlight(): Prisma.HighlightDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.activityPhoto`: Exposes CRUD operations for the **ActivityPhoto** model.
@@ -701,6 +716,7 @@ export namespace Prisma {
     Car: 'Car',
     RentACar: 'RentACar',
     Activity: 'Activity',
+    Highlight: 'Highlight',
     ActivityPhoto: 'ActivityPhoto',
     TourPackage: 'TourPackage',
     TourPhoto: 'TourPhoto',
@@ -724,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "car" | "rentACar" | "activity" | "activityPhoto" | "tourPackage" | "tourPhoto" | "tourHighlight" | "location"
+      modelProps: "car" | "rentACar" | "activity" | "highlight" | "activityPhoto" | "tourPackage" | "tourPhoto" | "tourHighlight" | "location"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -947,6 +963,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ActivityCountArgs<ExtArgs>
             result: $Utils.Optional<ActivityCountAggregateOutputType> | number
+          }
+        }
+      }
+      Highlight: {
+        payload: Prisma.$HighlightPayload<ExtArgs>
+        fields: Prisma.HighlightFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HighlightFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HighlightFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>
+          }
+          findFirst: {
+            args: Prisma.HighlightFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HighlightFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>
+          }
+          findMany: {
+            args: Prisma.HighlightFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>[]
+          }
+          create: {
+            args: Prisma.HighlightCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>
+          }
+          createMany: {
+            args: Prisma.HighlightCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HighlightCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>[]
+          }
+          delete: {
+            args: Prisma.HighlightDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>
+          }
+          update: {
+            args: Prisma.HighlightUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>
+          }
+          deleteMany: {
+            args: Prisma.HighlightDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HighlightUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HighlightUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>[]
+          }
+          upsert: {
+            args: Prisma.HighlightUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HighlightPayload>
+          }
+          aggregate: {
+            args: Prisma.HighlightAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHighlight>
+          }
+          groupBy: {
+            args: Prisma.HighlightGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HighlightGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HighlightCountArgs<ExtArgs>
+            result: $Utils.Optional<HighlightCountAggregateOutputType> | number
           }
         }
       }
@@ -1407,6 +1497,7 @@ export namespace Prisma {
     car?: CarOmit
     rentACar?: RentACarOmit
     activity?: ActivityOmit
+    highlight?: HighlightOmit
     activityPhoto?: ActivityPhotoOmit
     tourPackage?: TourPackageOmit
     tourPhoto?: TourPhotoOmit
@@ -1538,10 +1629,12 @@ export namespace Prisma {
 
   export type ActivityCountOutputType = {
     photos: number
+    highlights: number
   }
 
   export type ActivityCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     photos?: boolean | ActivityCountOutputTypeCountPhotosArgs
+    highlights?: boolean | ActivityCountOutputTypeCountHighlightsArgs
   }
 
   // Custom InputTypes
@@ -1560,6 +1653,13 @@ export namespace Prisma {
    */
   export type ActivityCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ActivityPhotoWhereInput
+  }
+
+  /**
+   * ActivityCountOutputType without action
+   */
+  export type ActivityCountOutputTypeCountHighlightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HighlightWhereInput
   }
 
 
@@ -4169,6 +4269,7 @@ export namespace Prisma {
     date?: boolean
     price?: boolean
     photos?: boolean | Activity$photosArgs<ExtArgs>
+    highlights?: boolean | Activity$highlightsArgs<ExtArgs>
     _count?: boolean | ActivityCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["activity"]>
 
@@ -4199,6 +4300,7 @@ export namespace Prisma {
   export type ActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "date" | "price", ExtArgs["result"]["activity"]>
   export type ActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     photos?: boolean | Activity$photosArgs<ExtArgs>
+    highlights?: boolean | Activity$highlightsArgs<ExtArgs>
     _count?: boolean | ActivityCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ActivityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4208,6 +4310,7 @@ export namespace Prisma {
     name: "Activity"
     objects: {
       photos: Prisma.$ActivityPhotoPayload<ExtArgs>[]
+      highlights: Prisma.$HighlightPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4610,6 +4713,7 @@ export namespace Prisma {
   export interface Prisma__ActivityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     photos<T extends Activity$photosArgs<ExtArgs> = {}>(args?: Subset<T, Activity$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPhotoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    highlights<T extends Activity$highlightsArgs<ExtArgs> = {}>(args?: Subset<T, Activity$highlightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5054,6 +5158,30 @@ export namespace Prisma {
   }
 
   /**
+   * Activity.highlights
+   */
+  export type Activity$highlightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    where?: HighlightWhereInput
+    orderBy?: HighlightOrderByWithRelationInput | HighlightOrderByWithRelationInput[]
+    cursor?: HighlightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HighlightScalarFieldEnum | HighlightScalarFieldEnum[]
+  }
+
+  /**
    * Activity without action
    */
   export type ActivityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5069,6 +5197,1074 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ActivityInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Highlight
+   */
+
+  export type AggregateHighlight = {
+    _count: HighlightCountAggregateOutputType | null
+    _avg: HighlightAvgAggregateOutputType | null
+    _sum: HighlightSumAggregateOutputType | null
+    _min: HighlightMinAggregateOutputType | null
+    _max: HighlightMaxAggregateOutputType | null
+  }
+
+  export type HighlightAvgAggregateOutputType = {
+    id: number | null
+    activityId: number | null
+  }
+
+  export type HighlightSumAggregateOutputType = {
+    id: number | null
+    activityId: number | null
+  }
+
+  export type HighlightMinAggregateOutputType = {
+    id: number | null
+    text: string | null
+    activityId: number | null
+  }
+
+  export type HighlightMaxAggregateOutputType = {
+    id: number | null
+    text: string | null
+    activityId: number | null
+  }
+
+  export type HighlightCountAggregateOutputType = {
+    id: number
+    text: number
+    activityId: number
+    _all: number
+  }
+
+
+  export type HighlightAvgAggregateInputType = {
+    id?: true
+    activityId?: true
+  }
+
+  export type HighlightSumAggregateInputType = {
+    id?: true
+    activityId?: true
+  }
+
+  export type HighlightMinAggregateInputType = {
+    id?: true
+    text?: true
+    activityId?: true
+  }
+
+  export type HighlightMaxAggregateInputType = {
+    id?: true
+    text?: true
+    activityId?: true
+  }
+
+  export type HighlightCountAggregateInputType = {
+    id?: true
+    text?: true
+    activityId?: true
+    _all?: true
+  }
+
+  export type HighlightAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Highlight to aggregate.
+     */
+    where?: HighlightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Highlights to fetch.
+     */
+    orderBy?: HighlightOrderByWithRelationInput | HighlightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HighlightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Highlights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Highlights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Highlights
+    **/
+    _count?: true | HighlightCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HighlightAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HighlightSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HighlightMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HighlightMaxAggregateInputType
+  }
+
+  export type GetHighlightAggregateType<T extends HighlightAggregateArgs> = {
+        [P in keyof T & keyof AggregateHighlight]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHighlight[P]>
+      : GetScalarType<T[P], AggregateHighlight[P]>
+  }
+
+
+
+
+  export type HighlightGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HighlightWhereInput
+    orderBy?: HighlightOrderByWithAggregationInput | HighlightOrderByWithAggregationInput[]
+    by: HighlightScalarFieldEnum[] | HighlightScalarFieldEnum
+    having?: HighlightScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HighlightCountAggregateInputType | true
+    _avg?: HighlightAvgAggregateInputType
+    _sum?: HighlightSumAggregateInputType
+    _min?: HighlightMinAggregateInputType
+    _max?: HighlightMaxAggregateInputType
+  }
+
+  export type HighlightGroupByOutputType = {
+    id: number
+    text: string
+    activityId: number
+    _count: HighlightCountAggregateOutputType | null
+    _avg: HighlightAvgAggregateOutputType | null
+    _sum: HighlightSumAggregateOutputType | null
+    _min: HighlightMinAggregateOutputType | null
+    _max: HighlightMaxAggregateOutputType | null
+  }
+
+  type GetHighlightGroupByPayload<T extends HighlightGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HighlightGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HighlightGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HighlightGroupByOutputType[P]>
+            : GetScalarType<T[P], HighlightGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HighlightSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    activityId?: boolean
+    activity?: boolean | ActivityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["highlight"]>
+
+  export type HighlightSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    activityId?: boolean
+    activity?: boolean | ActivityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["highlight"]>
+
+  export type HighlightSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    text?: boolean
+    activityId?: boolean
+    activity?: boolean | ActivityDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["highlight"]>
+
+  export type HighlightSelectScalar = {
+    id?: boolean
+    text?: boolean
+    activityId?: boolean
+  }
+
+  export type HighlightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "activityId", ExtArgs["result"]["highlight"]>
+  export type HighlightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activity?: boolean | ActivityDefaultArgs<ExtArgs>
+  }
+  export type HighlightIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activity?: boolean | ActivityDefaultArgs<ExtArgs>
+  }
+  export type HighlightIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activity?: boolean | ActivityDefaultArgs<ExtArgs>
+  }
+
+  export type $HighlightPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Highlight"
+    objects: {
+      activity: Prisma.$ActivityPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      text: string
+      activityId: number
+    }, ExtArgs["result"]["highlight"]>
+    composites: {}
+  }
+
+  type HighlightGetPayload<S extends boolean | null | undefined | HighlightDefaultArgs> = $Result.GetResult<Prisma.$HighlightPayload, S>
+
+  type HighlightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HighlightFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HighlightCountAggregateInputType | true
+    }
+
+  export interface HighlightDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Highlight'], meta: { name: 'Highlight' } }
+    /**
+     * Find zero or one Highlight that matches the filter.
+     * @param {HighlightFindUniqueArgs} args - Arguments to find a Highlight
+     * @example
+     * // Get one Highlight
+     * const highlight = await prisma.highlight.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HighlightFindUniqueArgs>(args: SelectSubset<T, HighlightFindUniqueArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Highlight that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HighlightFindUniqueOrThrowArgs} args - Arguments to find a Highlight
+     * @example
+     * // Get one Highlight
+     * const highlight = await prisma.highlight.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HighlightFindUniqueOrThrowArgs>(args: SelectSubset<T, HighlightFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Highlight that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightFindFirstArgs} args - Arguments to find a Highlight
+     * @example
+     * // Get one Highlight
+     * const highlight = await prisma.highlight.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HighlightFindFirstArgs>(args?: SelectSubset<T, HighlightFindFirstArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Highlight that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightFindFirstOrThrowArgs} args - Arguments to find a Highlight
+     * @example
+     * // Get one Highlight
+     * const highlight = await prisma.highlight.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HighlightFindFirstOrThrowArgs>(args?: SelectSubset<T, HighlightFindFirstOrThrowArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Highlights that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Highlights
+     * const highlights = await prisma.highlight.findMany()
+     * 
+     * // Get first 10 Highlights
+     * const highlights = await prisma.highlight.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const highlightWithIdOnly = await prisma.highlight.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HighlightFindManyArgs>(args?: SelectSubset<T, HighlightFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Highlight.
+     * @param {HighlightCreateArgs} args - Arguments to create a Highlight.
+     * @example
+     * // Create one Highlight
+     * const Highlight = await prisma.highlight.create({
+     *   data: {
+     *     // ... data to create a Highlight
+     *   }
+     * })
+     * 
+     */
+    create<T extends HighlightCreateArgs>(args: SelectSubset<T, HighlightCreateArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Highlights.
+     * @param {HighlightCreateManyArgs} args - Arguments to create many Highlights.
+     * @example
+     * // Create many Highlights
+     * const highlight = await prisma.highlight.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HighlightCreateManyArgs>(args?: SelectSubset<T, HighlightCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Highlights and returns the data saved in the database.
+     * @param {HighlightCreateManyAndReturnArgs} args - Arguments to create many Highlights.
+     * @example
+     * // Create many Highlights
+     * const highlight = await prisma.highlight.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Highlights and only return the `id`
+     * const highlightWithIdOnly = await prisma.highlight.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HighlightCreateManyAndReturnArgs>(args?: SelectSubset<T, HighlightCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Highlight.
+     * @param {HighlightDeleteArgs} args - Arguments to delete one Highlight.
+     * @example
+     * // Delete one Highlight
+     * const Highlight = await prisma.highlight.delete({
+     *   where: {
+     *     // ... filter to delete one Highlight
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HighlightDeleteArgs>(args: SelectSubset<T, HighlightDeleteArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Highlight.
+     * @param {HighlightUpdateArgs} args - Arguments to update one Highlight.
+     * @example
+     * // Update one Highlight
+     * const highlight = await prisma.highlight.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HighlightUpdateArgs>(args: SelectSubset<T, HighlightUpdateArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Highlights.
+     * @param {HighlightDeleteManyArgs} args - Arguments to filter Highlights to delete.
+     * @example
+     * // Delete a few Highlights
+     * const { count } = await prisma.highlight.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HighlightDeleteManyArgs>(args?: SelectSubset<T, HighlightDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Highlights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Highlights
+     * const highlight = await prisma.highlight.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HighlightUpdateManyArgs>(args: SelectSubset<T, HighlightUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Highlights and returns the data updated in the database.
+     * @param {HighlightUpdateManyAndReturnArgs} args - Arguments to update many Highlights.
+     * @example
+     * // Update many Highlights
+     * const highlight = await prisma.highlight.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Highlights and only return the `id`
+     * const highlightWithIdOnly = await prisma.highlight.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HighlightUpdateManyAndReturnArgs>(args: SelectSubset<T, HighlightUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Highlight.
+     * @param {HighlightUpsertArgs} args - Arguments to update or create a Highlight.
+     * @example
+     * // Update or create a Highlight
+     * const highlight = await prisma.highlight.upsert({
+     *   create: {
+     *     // ... data to create a Highlight
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Highlight we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HighlightUpsertArgs>(args: SelectSubset<T, HighlightUpsertArgs<ExtArgs>>): Prisma__HighlightClient<$Result.GetResult<Prisma.$HighlightPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Highlights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightCountArgs} args - Arguments to filter Highlights to count.
+     * @example
+     * // Count the number of Highlights
+     * const count = await prisma.highlight.count({
+     *   where: {
+     *     // ... the filter for the Highlights we want to count
+     *   }
+     * })
+    **/
+    count<T extends HighlightCountArgs>(
+      args?: Subset<T, HighlightCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HighlightCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Highlight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HighlightAggregateArgs>(args: Subset<T, HighlightAggregateArgs>): Prisma.PrismaPromise<GetHighlightAggregateType<T>>
+
+    /**
+     * Group by Highlight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HighlightGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HighlightGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HighlightGroupByArgs['orderBy'] }
+        : { orderBy?: HighlightGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HighlightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHighlightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Highlight model
+   */
+  readonly fields: HighlightFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Highlight.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HighlightClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    activity<T extends ActivityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ActivityDefaultArgs<ExtArgs>>): Prisma__ActivityClient<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Highlight model
+   */
+  interface HighlightFieldRefs {
+    readonly id: FieldRef<"Highlight", 'Int'>
+    readonly text: FieldRef<"Highlight", 'String'>
+    readonly activityId: FieldRef<"Highlight", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Highlight findUnique
+   */
+  export type HighlightFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * Filter, which Highlight to fetch.
+     */
+    where: HighlightWhereUniqueInput
+  }
+
+  /**
+   * Highlight findUniqueOrThrow
+   */
+  export type HighlightFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * Filter, which Highlight to fetch.
+     */
+    where: HighlightWhereUniqueInput
+  }
+
+  /**
+   * Highlight findFirst
+   */
+  export type HighlightFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * Filter, which Highlight to fetch.
+     */
+    where?: HighlightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Highlights to fetch.
+     */
+    orderBy?: HighlightOrderByWithRelationInput | HighlightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Highlights.
+     */
+    cursor?: HighlightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Highlights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Highlights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Highlights.
+     */
+    distinct?: HighlightScalarFieldEnum | HighlightScalarFieldEnum[]
+  }
+
+  /**
+   * Highlight findFirstOrThrow
+   */
+  export type HighlightFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * Filter, which Highlight to fetch.
+     */
+    where?: HighlightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Highlights to fetch.
+     */
+    orderBy?: HighlightOrderByWithRelationInput | HighlightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Highlights.
+     */
+    cursor?: HighlightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Highlights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Highlights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Highlights.
+     */
+    distinct?: HighlightScalarFieldEnum | HighlightScalarFieldEnum[]
+  }
+
+  /**
+   * Highlight findMany
+   */
+  export type HighlightFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * Filter, which Highlights to fetch.
+     */
+    where?: HighlightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Highlights to fetch.
+     */
+    orderBy?: HighlightOrderByWithRelationInput | HighlightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Highlights.
+     */
+    cursor?: HighlightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Highlights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Highlights.
+     */
+    skip?: number
+    distinct?: HighlightScalarFieldEnum | HighlightScalarFieldEnum[]
+  }
+
+  /**
+   * Highlight create
+   */
+  export type HighlightCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Highlight.
+     */
+    data: XOR<HighlightCreateInput, HighlightUncheckedCreateInput>
+  }
+
+  /**
+   * Highlight createMany
+   */
+  export type HighlightCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Highlights.
+     */
+    data: HighlightCreateManyInput | HighlightCreateManyInput[]
+  }
+
+  /**
+   * Highlight createManyAndReturn
+   */
+  export type HighlightCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * The data used to create many Highlights.
+     */
+    data: HighlightCreateManyInput | HighlightCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Highlight update
+   */
+  export type HighlightUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Highlight.
+     */
+    data: XOR<HighlightUpdateInput, HighlightUncheckedUpdateInput>
+    /**
+     * Choose, which Highlight to update.
+     */
+    where: HighlightWhereUniqueInput
+  }
+
+  /**
+   * Highlight updateMany
+   */
+  export type HighlightUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Highlights.
+     */
+    data: XOR<HighlightUpdateManyMutationInput, HighlightUncheckedUpdateManyInput>
+    /**
+     * Filter which Highlights to update
+     */
+    where?: HighlightWhereInput
+    /**
+     * Limit how many Highlights to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Highlight updateManyAndReturn
+   */
+  export type HighlightUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * The data used to update Highlights.
+     */
+    data: XOR<HighlightUpdateManyMutationInput, HighlightUncheckedUpdateManyInput>
+    /**
+     * Filter which Highlights to update
+     */
+    where?: HighlightWhereInput
+    /**
+     * Limit how many Highlights to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Highlight upsert
+   */
+  export type HighlightUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Highlight to update in case it exists.
+     */
+    where: HighlightWhereUniqueInput
+    /**
+     * In case the Highlight found by the `where` argument doesn't exist, create a new Highlight with this data.
+     */
+    create: XOR<HighlightCreateInput, HighlightUncheckedCreateInput>
+    /**
+     * In case the Highlight was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HighlightUpdateInput, HighlightUncheckedUpdateInput>
+  }
+
+  /**
+   * Highlight delete
+   */
+  export type HighlightDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
+    /**
+     * Filter which Highlight to delete.
+     */
+    where: HighlightWhereUniqueInput
+  }
+
+  /**
+   * Highlight deleteMany
+   */
+  export type HighlightDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Highlights to delete
+     */
+    where?: HighlightWhereInput
+    /**
+     * Limit how many Highlights to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Highlight without action
+   */
+  export type HighlightDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Highlight
+     */
+    select?: HighlightSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Highlight
+     */
+    omit?: HighlightOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HighlightInclude<ExtArgs> | null
   }
 
 
@@ -10573,6 +11769,15 @@ export namespace Prisma {
   export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
 
 
+  export const HighlightScalarFieldEnum: {
+    id: 'id',
+    text: 'text',
+    activityId: 'activityId'
+  };
+
+  export type HighlightScalarFieldEnum = (typeof HighlightScalarFieldEnum)[keyof typeof HighlightScalarFieldEnum]
+
+
   export const ActivityPhotoScalarFieldEnum: {
     id: 'id',
     url: 'url',
@@ -10858,6 +12063,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"Activity"> | Date | string
     price?: FloatFilter<"Activity"> | number
     photos?: ActivityPhotoListRelationFilter
+    highlights?: HighlightListRelationFilter
   }
 
   export type ActivityOrderByWithRelationInput = {
@@ -10867,6 +12073,7 @@ export namespace Prisma {
     date?: SortOrder
     price?: SortOrder
     photos?: ActivityPhotoOrderByRelationAggregateInput
+    highlights?: HighlightOrderByRelationAggregateInput
   }
 
   export type ActivityWhereUniqueInput = Prisma.AtLeast<{
@@ -10879,6 +12086,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"Activity"> | Date | string
     price?: FloatFilter<"Activity"> | number
     photos?: ActivityPhotoListRelationFilter
+    highlights?: HighlightListRelationFilter
   }, "id">
 
   export type ActivityOrderByWithAggregationInput = {
@@ -10903,6 +12111,53 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Activity"> | string | null
     date?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
     price?: FloatWithAggregatesFilter<"Activity"> | number
+  }
+
+  export type HighlightWhereInput = {
+    AND?: HighlightWhereInput | HighlightWhereInput[]
+    OR?: HighlightWhereInput[]
+    NOT?: HighlightWhereInput | HighlightWhereInput[]
+    id?: IntFilter<"Highlight"> | number
+    text?: StringFilter<"Highlight"> | string
+    activityId?: IntFilter<"Highlight"> | number
+    activity?: XOR<ActivityScalarRelationFilter, ActivityWhereInput>
+  }
+
+  export type HighlightOrderByWithRelationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    activityId?: SortOrder
+    activity?: ActivityOrderByWithRelationInput
+  }
+
+  export type HighlightWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: HighlightWhereInput | HighlightWhereInput[]
+    OR?: HighlightWhereInput[]
+    NOT?: HighlightWhereInput | HighlightWhereInput[]
+    text?: StringFilter<"Highlight"> | string
+    activityId?: IntFilter<"Highlight"> | number
+    activity?: XOR<ActivityScalarRelationFilter, ActivityWhereInput>
+  }, "id">
+
+  export type HighlightOrderByWithAggregationInput = {
+    id?: SortOrder
+    text?: SortOrder
+    activityId?: SortOrder
+    _count?: HighlightCountOrderByAggregateInput
+    _avg?: HighlightAvgOrderByAggregateInput
+    _max?: HighlightMaxOrderByAggregateInput
+    _min?: HighlightMinOrderByAggregateInput
+    _sum?: HighlightSumOrderByAggregateInput
+  }
+
+  export type HighlightScalarWhereWithAggregatesInput = {
+    AND?: HighlightScalarWhereWithAggregatesInput | HighlightScalarWhereWithAggregatesInput[]
+    OR?: HighlightScalarWhereWithAggregatesInput[]
+    NOT?: HighlightScalarWhereWithAggregatesInput | HighlightScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Highlight"> | number
+    text?: StringWithAggregatesFilter<"Highlight"> | string
+    activityId?: IntWithAggregatesFilter<"Highlight"> | number
   }
 
   export type ActivityPhotoWhereInput = {
@@ -11377,6 +12632,7 @@ export namespace Prisma {
     date?: Date | string
     price: number
     photos?: ActivityPhotoCreateNestedManyWithoutActivityInput
+    highlights?: HighlightCreateNestedManyWithoutActivityInput
   }
 
   export type ActivityUncheckedCreateInput = {
@@ -11386,6 +12642,7 @@ export namespace Prisma {
     date?: Date | string
     price: number
     photos?: ActivityPhotoUncheckedCreateNestedManyWithoutActivityInput
+    highlights?: HighlightUncheckedCreateNestedManyWithoutActivityInput
   }
 
   export type ActivityUpdateInput = {
@@ -11394,6 +12651,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     price?: FloatFieldUpdateOperationsInput | number
     photos?: ActivityPhotoUpdateManyWithoutActivityNestedInput
+    highlights?: HighlightUpdateManyWithoutActivityNestedInput
   }
 
   export type ActivityUncheckedUpdateInput = {
@@ -11403,6 +12661,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     price?: FloatFieldUpdateOperationsInput | number
     photos?: ActivityPhotoUncheckedUpdateManyWithoutActivityNestedInput
+    highlights?: HighlightUncheckedUpdateManyWithoutActivityNestedInput
   }
 
   export type ActivityCreateManyInput = {
@@ -11426,6 +12685,44 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     price?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type HighlightCreateInput = {
+    text: string
+    activity: ActivityCreateNestedOneWithoutHighlightsInput
+  }
+
+  export type HighlightUncheckedCreateInput = {
+    id?: number
+    text: string
+    activityId: number
+  }
+
+  export type HighlightUpdateInput = {
+    text?: StringFieldUpdateOperationsInput | string
+    activity?: ActivityUpdateOneRequiredWithoutHighlightsNestedInput
+  }
+
+  export type HighlightUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    activityId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HighlightCreateManyInput = {
+    id?: number
+    text: string
+    activityId: number
+  }
+
+  export type HighlightUpdateManyMutationInput = {
+    text?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HighlightUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+    activityId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ActivityPhotoCreateInput = {
@@ -11945,12 +13242,22 @@ export namespace Prisma {
     none?: ActivityPhotoWhereInput
   }
 
+  export type HighlightListRelationFilter = {
+    every?: HighlightWhereInput
+    some?: HighlightWhereInput
+    none?: HighlightWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type ActivityPhotoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HighlightOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12008,6 +13315,34 @@ export namespace Prisma {
   export type ActivityScalarRelationFilter = {
     is?: ActivityWhereInput
     isNot?: ActivityWhereInput
+  }
+
+  export type HighlightCountOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    activityId?: SortOrder
+  }
+
+  export type HighlightAvgOrderByAggregateInput = {
+    id?: SortOrder
+    activityId?: SortOrder
+  }
+
+  export type HighlightMaxOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    activityId?: SortOrder
+  }
+
+  export type HighlightMinOrderByAggregateInput = {
+    id?: SortOrder
+    text?: SortOrder
+    activityId?: SortOrder
+  }
+
+  export type HighlightSumOrderByAggregateInput = {
+    id?: SortOrder
+    activityId?: SortOrder
   }
 
   export type ActivityPhotoCountOrderByAggregateInput = {
@@ -12322,11 +13657,25 @@ export namespace Prisma {
     connect?: ActivityPhotoWhereUniqueInput | ActivityPhotoWhereUniqueInput[]
   }
 
+  export type HighlightCreateNestedManyWithoutActivityInput = {
+    create?: XOR<HighlightCreateWithoutActivityInput, HighlightUncheckedCreateWithoutActivityInput> | HighlightCreateWithoutActivityInput[] | HighlightUncheckedCreateWithoutActivityInput[]
+    connectOrCreate?: HighlightCreateOrConnectWithoutActivityInput | HighlightCreateOrConnectWithoutActivityInput[]
+    createMany?: HighlightCreateManyActivityInputEnvelope
+    connect?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+  }
+
   export type ActivityPhotoUncheckedCreateNestedManyWithoutActivityInput = {
     create?: XOR<ActivityPhotoCreateWithoutActivityInput, ActivityPhotoUncheckedCreateWithoutActivityInput> | ActivityPhotoCreateWithoutActivityInput[] | ActivityPhotoUncheckedCreateWithoutActivityInput[]
     connectOrCreate?: ActivityPhotoCreateOrConnectWithoutActivityInput | ActivityPhotoCreateOrConnectWithoutActivityInput[]
     createMany?: ActivityPhotoCreateManyActivityInputEnvelope
     connect?: ActivityPhotoWhereUniqueInput | ActivityPhotoWhereUniqueInput[]
+  }
+
+  export type HighlightUncheckedCreateNestedManyWithoutActivityInput = {
+    create?: XOR<HighlightCreateWithoutActivityInput, HighlightUncheckedCreateWithoutActivityInput> | HighlightCreateWithoutActivityInput[] | HighlightUncheckedCreateWithoutActivityInput[]
+    connectOrCreate?: HighlightCreateOrConnectWithoutActivityInput | HighlightCreateOrConnectWithoutActivityInput[]
+    createMany?: HighlightCreateManyActivityInputEnvelope
+    connect?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -12347,6 +13696,20 @@ export namespace Prisma {
     deleteMany?: ActivityPhotoScalarWhereInput | ActivityPhotoScalarWhereInput[]
   }
 
+  export type HighlightUpdateManyWithoutActivityNestedInput = {
+    create?: XOR<HighlightCreateWithoutActivityInput, HighlightUncheckedCreateWithoutActivityInput> | HighlightCreateWithoutActivityInput[] | HighlightUncheckedCreateWithoutActivityInput[]
+    connectOrCreate?: HighlightCreateOrConnectWithoutActivityInput | HighlightCreateOrConnectWithoutActivityInput[]
+    upsert?: HighlightUpsertWithWhereUniqueWithoutActivityInput | HighlightUpsertWithWhereUniqueWithoutActivityInput[]
+    createMany?: HighlightCreateManyActivityInputEnvelope
+    set?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    disconnect?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    delete?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    connect?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    update?: HighlightUpdateWithWhereUniqueWithoutActivityInput | HighlightUpdateWithWhereUniqueWithoutActivityInput[]
+    updateMany?: HighlightUpdateManyWithWhereWithoutActivityInput | HighlightUpdateManyWithWhereWithoutActivityInput[]
+    deleteMany?: HighlightScalarWhereInput | HighlightScalarWhereInput[]
+  }
+
   export type ActivityPhotoUncheckedUpdateManyWithoutActivityNestedInput = {
     create?: XOR<ActivityPhotoCreateWithoutActivityInput, ActivityPhotoUncheckedCreateWithoutActivityInput> | ActivityPhotoCreateWithoutActivityInput[] | ActivityPhotoUncheckedCreateWithoutActivityInput[]
     connectOrCreate?: ActivityPhotoCreateOrConnectWithoutActivityInput | ActivityPhotoCreateOrConnectWithoutActivityInput[]
@@ -12359,6 +13722,34 @@ export namespace Prisma {
     update?: ActivityPhotoUpdateWithWhereUniqueWithoutActivityInput | ActivityPhotoUpdateWithWhereUniqueWithoutActivityInput[]
     updateMany?: ActivityPhotoUpdateManyWithWhereWithoutActivityInput | ActivityPhotoUpdateManyWithWhereWithoutActivityInput[]
     deleteMany?: ActivityPhotoScalarWhereInput | ActivityPhotoScalarWhereInput[]
+  }
+
+  export type HighlightUncheckedUpdateManyWithoutActivityNestedInput = {
+    create?: XOR<HighlightCreateWithoutActivityInput, HighlightUncheckedCreateWithoutActivityInput> | HighlightCreateWithoutActivityInput[] | HighlightUncheckedCreateWithoutActivityInput[]
+    connectOrCreate?: HighlightCreateOrConnectWithoutActivityInput | HighlightCreateOrConnectWithoutActivityInput[]
+    upsert?: HighlightUpsertWithWhereUniqueWithoutActivityInput | HighlightUpsertWithWhereUniqueWithoutActivityInput[]
+    createMany?: HighlightCreateManyActivityInputEnvelope
+    set?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    disconnect?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    delete?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    connect?: HighlightWhereUniqueInput | HighlightWhereUniqueInput[]
+    update?: HighlightUpdateWithWhereUniqueWithoutActivityInput | HighlightUpdateWithWhereUniqueWithoutActivityInput[]
+    updateMany?: HighlightUpdateManyWithWhereWithoutActivityInput | HighlightUpdateManyWithWhereWithoutActivityInput[]
+    deleteMany?: HighlightScalarWhereInput | HighlightScalarWhereInput[]
+  }
+
+  export type ActivityCreateNestedOneWithoutHighlightsInput = {
+    create?: XOR<ActivityCreateWithoutHighlightsInput, ActivityUncheckedCreateWithoutHighlightsInput>
+    connectOrCreate?: ActivityCreateOrConnectWithoutHighlightsInput
+    connect?: ActivityWhereUniqueInput
+  }
+
+  export type ActivityUpdateOneRequiredWithoutHighlightsNestedInput = {
+    create?: XOR<ActivityCreateWithoutHighlightsInput, ActivityUncheckedCreateWithoutHighlightsInput>
+    connectOrCreate?: ActivityCreateOrConnectWithoutHighlightsInput
+    upsert?: ActivityUpsertWithoutHighlightsInput
+    connect?: ActivityWhereUniqueInput
+    update?: XOR<XOR<ActivityUpdateToOneWithWhereWithoutHighlightsInput, ActivityUpdateWithoutHighlightsInput>, ActivityUncheckedUpdateWithoutHighlightsInput>
   }
 
   export type ActivityCreateNestedOneWithoutPhotosInput = {
@@ -12828,6 +14219,24 @@ export namespace Prisma {
     data: ActivityPhotoCreateManyActivityInput | ActivityPhotoCreateManyActivityInput[]
   }
 
+  export type HighlightCreateWithoutActivityInput = {
+    text: string
+  }
+
+  export type HighlightUncheckedCreateWithoutActivityInput = {
+    id?: number
+    text: string
+  }
+
+  export type HighlightCreateOrConnectWithoutActivityInput = {
+    where: HighlightWhereUniqueInput
+    create: XOR<HighlightCreateWithoutActivityInput, HighlightUncheckedCreateWithoutActivityInput>
+  }
+
+  export type HighlightCreateManyActivityInputEnvelope = {
+    data: HighlightCreateManyActivityInput | HighlightCreateManyActivityInput[]
+  }
+
   export type ActivityPhotoUpsertWithWhereUniqueWithoutActivityInput = {
     where: ActivityPhotoWhereUniqueInput
     update: XOR<ActivityPhotoUpdateWithoutActivityInput, ActivityPhotoUncheckedUpdateWithoutActivityInput>
@@ -12853,11 +14262,87 @@ export namespace Prisma {
     activityId?: IntFilter<"ActivityPhoto"> | number
   }
 
+  export type HighlightUpsertWithWhereUniqueWithoutActivityInput = {
+    where: HighlightWhereUniqueInput
+    update: XOR<HighlightUpdateWithoutActivityInput, HighlightUncheckedUpdateWithoutActivityInput>
+    create: XOR<HighlightCreateWithoutActivityInput, HighlightUncheckedCreateWithoutActivityInput>
+  }
+
+  export type HighlightUpdateWithWhereUniqueWithoutActivityInput = {
+    where: HighlightWhereUniqueInput
+    data: XOR<HighlightUpdateWithoutActivityInput, HighlightUncheckedUpdateWithoutActivityInput>
+  }
+
+  export type HighlightUpdateManyWithWhereWithoutActivityInput = {
+    where: HighlightScalarWhereInput
+    data: XOR<HighlightUpdateManyMutationInput, HighlightUncheckedUpdateManyWithoutActivityInput>
+  }
+
+  export type HighlightScalarWhereInput = {
+    AND?: HighlightScalarWhereInput | HighlightScalarWhereInput[]
+    OR?: HighlightScalarWhereInput[]
+    NOT?: HighlightScalarWhereInput | HighlightScalarWhereInput[]
+    id?: IntFilter<"Highlight"> | number
+    text?: StringFilter<"Highlight"> | string
+    activityId?: IntFilter<"Highlight"> | number
+  }
+
+  export type ActivityCreateWithoutHighlightsInput = {
+    title: string
+    description?: string | null
+    date?: Date | string
+    price: number
+    photos?: ActivityPhotoCreateNestedManyWithoutActivityInput
+  }
+
+  export type ActivityUncheckedCreateWithoutHighlightsInput = {
+    id?: number
+    title: string
+    description?: string | null
+    date?: Date | string
+    price: number
+    photos?: ActivityPhotoUncheckedCreateNestedManyWithoutActivityInput
+  }
+
+  export type ActivityCreateOrConnectWithoutHighlightsInput = {
+    where: ActivityWhereUniqueInput
+    create: XOR<ActivityCreateWithoutHighlightsInput, ActivityUncheckedCreateWithoutHighlightsInput>
+  }
+
+  export type ActivityUpsertWithoutHighlightsInput = {
+    update: XOR<ActivityUpdateWithoutHighlightsInput, ActivityUncheckedUpdateWithoutHighlightsInput>
+    create: XOR<ActivityCreateWithoutHighlightsInput, ActivityUncheckedCreateWithoutHighlightsInput>
+    where?: ActivityWhereInput
+  }
+
+  export type ActivityUpdateToOneWithWhereWithoutHighlightsInput = {
+    where?: ActivityWhereInput
+    data: XOR<ActivityUpdateWithoutHighlightsInput, ActivityUncheckedUpdateWithoutHighlightsInput>
+  }
+
+  export type ActivityUpdateWithoutHighlightsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    photos?: ActivityPhotoUpdateManyWithoutActivityNestedInput
+  }
+
+  export type ActivityUncheckedUpdateWithoutHighlightsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    photos?: ActivityPhotoUncheckedUpdateManyWithoutActivityNestedInput
+  }
+
   export type ActivityCreateWithoutPhotosInput = {
     title: string
     description?: string | null
     date?: Date | string
     price: number
+    highlights?: HighlightCreateNestedManyWithoutActivityInput
   }
 
   export type ActivityUncheckedCreateWithoutPhotosInput = {
@@ -12866,6 +14351,7 @@ export namespace Prisma {
     description?: string | null
     date?: Date | string
     price: number
+    highlights?: HighlightUncheckedCreateNestedManyWithoutActivityInput
   }
 
   export type ActivityCreateOrConnectWithoutPhotosInput = {
@@ -12889,6 +14375,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     price?: FloatFieldUpdateOperationsInput | number
+    highlights?: HighlightUpdateManyWithoutActivityNestedInput
   }
 
   export type ActivityUncheckedUpdateWithoutPhotosInput = {
@@ -12897,6 +14384,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     price?: FloatFieldUpdateOperationsInput | number
+    highlights?: HighlightUncheckedUpdateManyWithoutActivityNestedInput
   }
 
   export type TourPhotoCreateWithoutTourPackageInput = {
@@ -13161,6 +14649,11 @@ export namespace Prisma {
     url: string
   }
 
+  export type HighlightCreateManyActivityInput = {
+    id?: number
+    text: string
+  }
+
   export type ActivityPhotoUpdateWithoutActivityInput = {
     url?: StringFieldUpdateOperationsInput | string
   }
@@ -13173,6 +14666,20 @@ export namespace Prisma {
   export type ActivityPhotoUncheckedUpdateManyWithoutActivityInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HighlightUpdateWithoutActivityInput = {
+    text?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HighlightUncheckedUpdateWithoutActivityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HighlightUncheckedUpdateManyWithoutActivityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    text?: StringFieldUpdateOperationsInput | string
   }
 
   export type TourPhotoCreateManyTourPackageInput = {
