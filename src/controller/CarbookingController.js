@@ -65,7 +65,6 @@ const handleBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* 
       </body>
       </html>
     `;
-        // Envia apenas para o cliente
         if (bookingData.customer.email) {
             const emailResult = yield (0, CarEmail_1.sendEmail)({
                 to: bookingData.customer.email,
