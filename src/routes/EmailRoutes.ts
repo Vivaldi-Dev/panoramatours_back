@@ -8,6 +8,5 @@ Emailrouter.post('/send-booking', createBooking);
 
 Emailrouter.post('/send-carbooking', handleBooking);
 
-Emailrouter.post('/sendcarbooking', handleBooking);
 
 export default Emailrouter;

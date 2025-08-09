@@ -8,11 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleBooking = void 0;
 const CarEmail_1 = require("../utils/CarEmail");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const HELPDESK_EMAIL = process.env.HELPDESK_EMAIL;
 const handleBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        if (!HELPDESK_EMAIL) {
+            console.error('HELPDESK_EMAIL não configurado no .env');
+            res.status(500).json({
+                success: false,
+                message: 'Configuração de e-mail do helpdesk ausente'
+            });
+            return;
+        }
         const bookingData = req.body;
         const emailHtml = `
       <!DOCTYPE html>
@@ -30,7 +44,7 @@ const handleBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* 
       <body>
           <div class="container">
               <div class="header">
-                  <h2>Confirmação da Sua Reserva de Veículo</h2>
+                  <h2>Nova Solicitação de Reserva</h2>
               </div>
               
               <div class="details">
@@ -65,17 +79,15 @@ const handleBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* 
       </body>
       </html>
     `;
-        if (bookingData.customer.email) {
-            const emailResult = yield (0, CarEmail_1.sendEmail)({
-                to: bookingData.customer.email,
-                subject: `Confirmação de Reserva - ${bookingData.car.model}`,
-                html: emailHtml
-            });
-            if (!emailResult.success) {
-                throw new Error('Falha ao enviar e-mail para o cliente');
-            }
+        const emailResult = yield (0, CarEmail_1.sendEmail)({
+            to: HELPDESK_EMAIL,
+            subject: `Nova Solicitação de Reserva - ${bookingData.car.model}`,
+            html: emailHtml
+        });
+        if (!emailResult.success) {
+            throw new Error('Falha ao enviar e-mail para o helpdesk');
         }
-        res.status(200).json({ success: true, message: 'Reserva confirmada com sucesso' });
+        res.status(200).json({ success: true, message: 'Reserva enviada ao helpdesk com sucesso' });
     }
     catch (error) {
         console.error('Error processing booking:', error);

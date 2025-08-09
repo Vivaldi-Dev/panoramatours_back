@@ -30,14 +30,15 @@ interface BookingData {
 
 const HELPDESK_EMAIL = process.env.HELPDESK_EMAIL;
 
-export const handleBooking = async (req: Request, res: Response) => {
+export const handleBooking = async (req: Request, res: Response) : Promise<void> => {
   try {
     if (!HELPDESK_EMAIL) {
       console.error('HELPDESK_EMAIL não configurado no .env');
-      return res.status(500).json({
+       res.status(500).json({
         success: false,
         message: 'Configuração de e-mail do helpdesk ausente'
       });
+      return
     }
 
     const bookingData: BookingData = req.body;
