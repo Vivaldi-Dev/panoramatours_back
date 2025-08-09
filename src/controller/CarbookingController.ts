@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import { sendEmail } from '../utils/CarEmail';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface BookingData {
   car: {
@@ -25,8 +28,18 @@ interface BookingData {
   };
 }
 
+const HELPDESK_EMAIL = process.env.HELPDESK_EMAIL;
+
 export const handleBooking = async (req: Request, res: Response) => {
   try {
+    if (!HELPDESK_EMAIL) {
+      console.error('HELPDESK_EMAIL não configurado no .env');
+      return res.status(500).json({
+        success: false,
+        message: 'Configuração de e-mail do helpdesk ausente'
+      });
+    }
+
     const bookingData: BookingData = req.body;
 
     const emailHtml = `
@@ -45,7 +58,7 @@ export const handleBooking = async (req: Request, res: Response) => {
       <body>
           <div class="container">
               <div class="header">
-                  <h2>Confirmação da Sua Reserva de Veículo</h2>
+                  <h2>Nova Solicitação de Reserva</h2>
               </div>
               
               <div class="details">
@@ -54,8 +67,8 @@ export const handleBooking = async (req: Request, res: Response) => {
                       <div>Nome: ${bookingData.customer.fullName}</div>
                       <div>Email: ${bookingData.customer.email}</div>
                       <div>Telefone: ${bookingData.customer.phone}</div>
-                      ${bookingData.customer.specialRequests ? 
-                        `<div>Observações: ${bookingData.customer.specialRequests}</div>` : ''}
+                      ${bookingData.customer.specialRequests ?
+        `<div>Observações: ${bookingData.customer.specialRequests}</div>` : ''}
                   </div>
                   
                   <div class="section">
@@ -81,19 +94,17 @@ export const handleBooking = async (req: Request, res: Response) => {
       </html>
     `;
 
-    if (bookingData.customer.email) {
-      const emailResult = await sendEmail({
-        to: bookingData.customer.email,
-        subject: `Confirmação de Reserva - ${bookingData.car.model}`,
-        html: emailHtml
-      });
+    const emailResult = await sendEmail({
+      to: HELPDESK_EMAIL,
+      subject: `Nova Solicitação de Reserva - ${bookingData.car.model}`,
+      html: emailHtml
+    });
 
-      if (!emailResult.success) {
-        throw new Error('Falha ao enviar e-mail para o cliente');
-      }
+    if (!emailResult.success) {
+      throw new Error('Falha ao enviar e-mail para o helpdesk');
     }
 
-    res.status(200).json({ success: true, message: 'Reserva confirmada com sucesso' });
+    res.status(200).json({ success: true, message: 'Reserva enviada ao helpdesk com sucesso' });
   } catch (error) {
     console.error('Error processing booking:', error);
     res.status(500).json({ success: false, message: 'Erro ao processar reserva' });

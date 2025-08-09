@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
 const transporter = nodemailer.createTransport({
   host: "mail.atlantictravel.co.mz",
   port: 465,
