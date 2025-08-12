@@ -13,6 +13,7 @@ import PackageRouter from "./routes/PackageRoutes";
 import RouterLocations from "./routes/location.routes";
 import Emailrouter from "./routes/EmailRoutes";
 import TesteRoutes from "./routes/TesteTounstes";
+import CarEmail from "./routes/CarEmailROutes";
 
 
 const app: Express = express();
@@ -33,6 +34,7 @@ app.use('/api', RouterLocations);
 
 app.use('/api', Emailrouter);
 
+app.use('/api', CarEmail);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("odoo");
