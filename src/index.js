@@ -28,6 +28,7 @@ const location_routes_1 = __importDefault(require("./routes/location.routes"));
 const EmailRoutes_1 = __importDefault(require("./routes/EmailRoutes"));
 const TesteTounstes_1 = __importDefault(require("./routes/TesteTounstes"));
 const CarEmailROutes_1 = __importDefault(require("./routes/CarEmailROutes"));
+const reservas_1 = __importDefault(require("./routes/reservas"));
 const app = (0, express_1.default)();
 const PORT = 4000;
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
@@ -48,6 +49,7 @@ app.use('/api', cityActivity_1.default);
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, '..', 'uploads')));
 app.use('/api', activityRoutes_1.default);
 app.use('/api', PackageRoutes_1.default);
+app.use('/api', reservas_1.default);
 app.get("/amadeus-token", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = yield (0, amadeusAuth_1.getAmadeusAccessToken)();
