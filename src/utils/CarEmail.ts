@@ -4,11 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  host: "mail.atlantictravel.co.mz",
-  port: 465,
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
   secure: true,
   auth: {
-    user: process.env.EMAIL_USER,
+    user: process.env.HELPDESK_EMAIL,
     pass: process.env.EMAIL_PASSWORD
   }
 });
@@ -22,7 +22,7 @@ interface EmailOptions {
 export const sendEmail = async (options: EmailOptions) => {
   try {
     const mailOptions = {
-      from: `Atlantic Travel <${process.env.EMAIL_USER}>`,
+      from: `Atlantic Travel <${process.env.HELPDESK_EMAIL}>`, 
       ...options
     };
 

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { sendBookingEmail } from '../utils/emailService';
 import dotenv from 'dotenv';
 
+dotenv.config();
+
 interface BookingRequest extends Request {
   body: {
     fullName: string;

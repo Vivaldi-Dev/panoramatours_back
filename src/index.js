@@ -22,11 +22,11 @@ const cityActivity_1 = __importDefault(require("./routes/cityActivity"));
 const path_1 = __importDefault(require("path"));
 const carRoutes_1 = __importDefault(require("./routes/carRoutes"));
 const prisma_1 = require("./generated/prisma");
-const rentACarRoutes_1 = __importDefault(require("./routes/rentACarRoutes"));
 const activityRoutes_1 = __importDefault(require("./routes/activityRoutes"));
 const PackageRoutes_1 = __importDefault(require("./routes/PackageRoutes"));
 const location_routes_1 = __importDefault(require("./routes/location.routes"));
 const EmailRoutes_1 = __importDefault(require("./routes/EmailRoutes"));
+const TesteTounstes_1 = __importDefault(require("./routes/TesteTounstes"));
 const app = (0, express_1.default)();
 const PORT = 4000;
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
@@ -45,7 +45,6 @@ app.get("/", (req, res) => {
 app.use('/api', cityActivity_1.default);
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, '..', 'uploads')));
 app.use('/api', activityRoutes_1.default);
-app.use('/api', rentACarRoutes_1.default);
 app.use('/api', PackageRoutes_1.default);
 app.get("/amadeus-token", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -85,7 +84,4 @@ app.use('/api', routes_1.default);
 app.listen(PORT, () => {
     console.log(`App rodando na porta ${PORT}`);
 });
-app.get("/teste", (req, res) => {
-    console.log(`EMAIL_USER RAW: "${process.env.EMAIL_USER}"`);
-    console.log(`EMAIL_PASSWORD RAW: "${process.env.EMAIL_PASSWORD}"`);
-});
+app.use('/api', TesteTounstes_1.default);

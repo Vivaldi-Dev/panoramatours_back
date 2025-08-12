@@ -12,25 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createBooking = void 0;
-const emailService_1 = require("../utils/emailService");
+exports.TestController = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const createBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield (0, emailService_1.sendBookingEmail)(req.body);
-        res.status(200).json({
-            success: true,
-            message: "Reserva enviada com sucesso!"
-        });
-    }
-    catch (error) {
-        console.error("Erro ao enviar e-mail:", error);
-        res.status(500).json({
-            success: false,
-            message: "Falha ao enviar e-mail.",
-            error: error instanceof Error ? error.message : 'Erro desconhecido'
-        });
-    }
+const path_1 = __importDefault(require("path"));
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '../../.env') });
+const TestController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(`EMAIL_USER RAW: "${process.env.EMAIL_USER}"`);
+    console.log(`EMAIL_PASSWORD RAW: "${process.env.EMAIL_PASSWORD}"`);
+    console.log(`EMAIL_USER: ${process.env.EMAIL_USER}`);
+    console.log(`EMAIL_PASSWORD: ${process.env.EMAIL_PASSWORD ? "******" : "undefined"}`);
+    res.send("Verifique os logs do servidor para os valores das variáveis.");
 });
-exports.createBooking = createBooking;
+exports.TestController = TestController;

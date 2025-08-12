@@ -17,17 +17,17 @@ const nodemailer_1 = __importDefault(require("nodemailer"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const transporter = nodemailer_1.default.createTransport({
-    host: "mail.atlantictravel.co.mz",
-    port: 465,
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
     secure: true,
     auth: {
-        user: process.env.EMAIL_USER,
+        user: process.env.HELPDESK_EMAIL,
         pass: process.env.EMAIL_PASSWORD
     }
 });
 const sendEmail = (options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const mailOptions = Object.assign({ from: `Atlantic Travel <${process.env.EMAIL_USER}>` }, options);
+        const mailOptions = Object.assign({ from: `Atlantic Travel <${process.env.HELPDESK_EMAIL}>` }, options);
         yield transporter.sendMail(mailOptions);
         return { success: true };
     }

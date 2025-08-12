@@ -12,6 +12,7 @@ import Routeractivities from "./routes/activityRoutes";
 import PackageRouter from "./routes/PackageRoutes";
 import RouterLocations from "./routes/location.routes";
 import Emailrouter from "./routes/EmailRoutes";
+import TesteRoutes from "./routes/TesteTounstes";
 
 
 const app: Express = express();
@@ -42,7 +43,6 @@ app.use('/api', routeractivities);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 app.use('/api', Routeractivities);
 
-app.use('/api', Rentrouter);
 
 app.use('/api', PackageRouter);
 
@@ -90,10 +90,4 @@ app.listen(PORT, () => {
 });
 
 
-app.get("/teste", (req: Request, res: Response) => {
-
-  console.log(`EMAIL_USER RAW: "${process.env.EMAIL_USER}"`);
-  console.log(`EMAIL_PASSWORD RAW: "${process.env.EMAIL_PASSWORD}"`);
-
-
-});
+app.use('/api', TesteRoutes);
