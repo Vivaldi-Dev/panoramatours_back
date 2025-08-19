@@ -11,6 +11,9 @@ prisma/dev.db-journal
 dist/
 build/
 
+/src/uploads
+/src/generated/prisma
+
 
 *.log
 
