@@ -15,6 +15,7 @@ import Emailrouter from "./routes/EmailRoutes";
 import TesteRoutes from "./routes/TesteTounstes";
 import CarEmail from "./routes/CarEmailROutes";
 import Reservasrouter from "./routes/reservas";
+import iatarouter from "./routes/iata.routes";
 
 
 const app: Express = express();
@@ -49,7 +50,7 @@ app.use('/api', Routeractivities);
 
 app.use('/api', PackageRouter);
 app.use('/api', Reservasrouter);
-
+app.use('/api', iatarouter);
 
 app.get("/amadeus-token", async (req: Request, res: Response) => {
   try {

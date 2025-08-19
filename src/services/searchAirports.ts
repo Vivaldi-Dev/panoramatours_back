@@ -1,7 +1,10 @@
 import axios, { AxiosError } from 'axios';
 import { getAmadeusAccessToken } from './amadeusAuth';
+import { PrismaClient,IATACode } from '../generated/prisma';
 
-interface Airport {
+const prisma = new PrismaClient();
+
+export interface Airport {
   type: string;
   subType: string;
   name: string;
@@ -20,10 +23,24 @@ export interface AirportSearchParams {
   view?: string;
 }
 
+interface AmadeusResponse {
+  data: {
+    type: string;
+    subType: string;
+    name: string;
+    iataCode: string;
+    address: {
+      cityName: string;
+      countryName: string;
+      countryCode?: string;
+    };
+  }[];
+}
+
+
 export async function searchAirports(params: AirportSearchParams): Promise<Airport[]> {
   try {
     const token = await getAmadeusAccessToken();
-    console.log("Token usado para buscar aeroportos:", token);
 
     const requestParams = {
       subType: params.subType || 'AIRPORT,CITY',
@@ -32,27 +49,76 @@ export async function searchAirports(params: AirportSearchParams): Promise<Airpo
       ...(params.countryCode && { countryCode: params.countryCode })
     };
 
-    const response = await axios.get('https://test.api.amadeus.com/v1/reference-data/locations', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/vnd.amadeus+json'
-      },
-      params: requestParams
+    const response = await axios.get<AmadeusResponse>(
+      'https://test.api.amadeus.com/v1/reference-data/locations',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/vnd.amadeus+json'
+        },
+        params: requestParams
+      }
+    );
+
+    const amadeusResults: Airport[] = response.data.data.map(r => ({
+      type: r.type,
+      subType: r.subType,
+      name: r.name,
+      iataCode: r.iataCode,
+      address: r.address
+    }));
+
+    const localResults: IATACode[] = await prisma.iATACode.findMany({
+      where: {
+        OR: [
+          { name: { contains: params.keyword } },
+          { code: { equals: params.keyword.toUpperCase() } }
+        ]
+      }
     });
 
-    return response.data.data || [];
+    const localMapped: Airport[] = localResults.map<Airport>((iata) => ({
+      type: "location",
+      subType: "AIRPORT",
+      name: iata.name,
+      iataCode: iata.code,
+      address: {
+        cityName: iata.name,
+        countryName: iata.country,
+        countryCode: "MZ"
+      }
+    }));
+
+    const combined = [...amadeusResults, ...localMapped];
+    const unique = combined.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.iataCode === value.iataCode)
+    );
+
+    return unique;
   } catch (error: unknown) {
-    let errorMessage = 'Erro desconhecido';
-    let errorDetails: any = null;
+    console.error("Erro na busca de aeroportos:", error);
 
-    if (error instanceof AxiosError) {      errorMessage = error.message;
-      errorDetails = error.response?.data;
-      console.error('Erro detalhado ao buscar aeroportos:', errorDetails || errorMessage);
-    } else if (error instanceof Error) {
-      errorMessage = error.message;
-      console.error('Erro ao buscar aeroportos:', errorMessage);
-    }
+    const fallback: IATACode[] = await prisma.iATACode.findMany({
+      where: {
+        OR: [
+          { name: { contains: params.keyword } },
+          { code: { equals: params.keyword.toUpperCase() } }
+        ]
+      }
+    });
 
-    throw new Error(`Falha na busca de aeroportos: ${errorMessage}`);
+    return fallback.map<Airport>((iata) => ({
+      type: "location",
+      subType: "AIRPORT",
+      name: iata.name,
+      iataCode: iata.code,
+      address: {
+        cityName: iata.name,
+        countryName: iata.country,
+        countryCode: "MZ"
+      }
+    }));
   }
 }
+

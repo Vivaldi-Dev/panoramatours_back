@@ -197,6 +197,14 @@ exports.Prisma.LocationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.IATACodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  country: 'country',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -217,7 +225,8 @@ exports.Prisma.ModelName = {
   TourPackage: 'TourPackage',
   TourPhoto: 'TourPhoto',
   TourHighlight: 'TourHighlight',
-  Location: 'Location'
+  Location: 'Location',
+  IATACode: 'IATACode'
 };
 
 /**

@@ -54,7 +54,7 @@ export const getActivities = async (_req: Request, res: Response): Promise<void>
         highlights: true,
       },
       orderBy: { date: 'desc' },
-    });
+    });  
 
     res.status(200).json(activities);
   } catch (error) {

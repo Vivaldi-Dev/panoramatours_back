@@ -103,3 +103,11 @@ model Location {
   type      String
   createdAt DateTime @default(now())
 }
+
+model IATACode {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  name      String
+  country   String
+  createdAt DateTime @default(now())
+}

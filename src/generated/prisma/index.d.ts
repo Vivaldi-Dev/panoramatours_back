@@ -58,6 +58,11 @@ export type TourHighlight = $Result.DefaultSelection<Prisma.$TourHighlightPayloa
  * 
  */
 export type Location = $Result.DefaultSelection<Prisma.$LocationPayload>
+/**
+ * Model IATACode
+ * 
+ */
+export type IATACode = $Result.DefaultSelection<Prisma.$IATACodePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -273,6 +278,16 @@ export class PrismaClient<
     * ```
     */
   get location(): Prisma.LocationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.iATACode`: Exposes CRUD operations for the **IATACode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IATACodes
+    * const iATACodes = await prisma.iATACode.findMany()
+    * ```
+    */
+  get iATACode(): Prisma.IATACodeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -721,7 +736,8 @@ export namespace Prisma {
     TourPackage: 'TourPackage',
     TourPhoto: 'TourPhoto',
     TourHighlight: 'TourHighlight',
-    Location: 'Location'
+    Location: 'Location',
+    IATACode: 'IATACode'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -740,7 +756,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "car" | "rentACar" | "activity" | "highlight" | "activityPhoto" | "tourPackage" | "tourPhoto" | "tourHighlight" | "location"
+      modelProps: "car" | "rentACar" | "activity" | "highlight" | "activityPhoto" | "tourPackage" | "tourPhoto" | "tourHighlight" | "location" | "iATACode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1410,6 +1426,80 @@ export namespace Prisma {
           }
         }
       }
+      IATACode: {
+        payload: Prisma.$IATACodePayload<ExtArgs>
+        fields: Prisma.IATACodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IATACodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IATACodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>
+          }
+          findFirst: {
+            args: Prisma.IATACodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IATACodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>
+          }
+          findMany: {
+            args: Prisma.IATACodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>[]
+          }
+          create: {
+            args: Prisma.IATACodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>
+          }
+          createMany: {
+            args: Prisma.IATACodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IATACodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>[]
+          }
+          delete: {
+            args: Prisma.IATACodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>
+          }
+          update: {
+            args: Prisma.IATACodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>
+          }
+          deleteMany: {
+            args: Prisma.IATACodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IATACodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IATACodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>[]
+          }
+          upsert: {
+            args: Prisma.IATACodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IATACodePayload>
+          }
+          aggregate: {
+            args: Prisma.IATACodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIATACode>
+          }
+          groupBy: {
+            args: Prisma.IATACodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IATACodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IATACodeCountArgs<ExtArgs>
+            result: $Utils.Optional<IATACodeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1503,6 +1593,7 @@ export namespace Prisma {
     tourPhoto?: TourPhotoOmit
     tourHighlight?: TourHighlightOmit
     location?: LocationOmit
+    iATACode?: IATACodeOmit
   }
 
   /* Types for Logging */
@@ -11715,6 +11806,1033 @@ export namespace Prisma {
 
 
   /**
+   * Model IATACode
+   */
+
+  export type AggregateIATACode = {
+    _count: IATACodeCountAggregateOutputType | null
+    _avg: IATACodeAvgAggregateOutputType | null
+    _sum: IATACodeSumAggregateOutputType | null
+    _min: IATACodeMinAggregateOutputType | null
+    _max: IATACodeMaxAggregateOutputType | null
+  }
+
+  export type IATACodeAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type IATACodeSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type IATACodeMinAggregateOutputType = {
+    id: number | null
+    code: string | null
+    name: string | null
+    country: string | null
+    createdAt: Date | null
+  }
+
+  export type IATACodeMaxAggregateOutputType = {
+    id: number | null
+    code: string | null
+    name: string | null
+    country: string | null
+    createdAt: Date | null
+  }
+
+  export type IATACodeCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    country: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type IATACodeAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type IATACodeSumAggregateInputType = {
+    id?: true
+  }
+
+  export type IATACodeMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    country?: true
+    createdAt?: true
+  }
+
+  export type IATACodeMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    country?: true
+    createdAt?: true
+  }
+
+  export type IATACodeCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    country?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type IATACodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IATACode to aggregate.
+     */
+    where?: IATACodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IATACodes to fetch.
+     */
+    orderBy?: IATACodeOrderByWithRelationInput | IATACodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IATACodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IATACodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IATACodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IATACodes
+    **/
+    _count?: true | IATACodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: IATACodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IATACodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IATACodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IATACodeMaxAggregateInputType
+  }
+
+  export type GetIATACodeAggregateType<T extends IATACodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateIATACode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIATACode[P]>
+      : GetScalarType<T[P], AggregateIATACode[P]>
+  }
+
+
+
+
+  export type IATACodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IATACodeWhereInput
+    orderBy?: IATACodeOrderByWithAggregationInput | IATACodeOrderByWithAggregationInput[]
+    by: IATACodeScalarFieldEnum[] | IATACodeScalarFieldEnum
+    having?: IATACodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IATACodeCountAggregateInputType | true
+    _avg?: IATACodeAvgAggregateInputType
+    _sum?: IATACodeSumAggregateInputType
+    _min?: IATACodeMinAggregateInputType
+    _max?: IATACodeMaxAggregateInputType
+  }
+
+  export type IATACodeGroupByOutputType = {
+    id: number
+    code: string
+    name: string
+    country: string
+    createdAt: Date
+    _count: IATACodeCountAggregateOutputType | null
+    _avg: IATACodeAvgAggregateOutputType | null
+    _sum: IATACodeSumAggregateOutputType | null
+    _min: IATACodeMinAggregateOutputType | null
+    _max: IATACodeMaxAggregateOutputType | null
+  }
+
+  type GetIATACodeGroupByPayload<T extends IATACodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IATACodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IATACodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IATACodeGroupByOutputType[P]>
+            : GetScalarType<T[P], IATACodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IATACodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["iATACode"]>
+
+  export type IATACodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["iATACode"]>
+
+  export type IATACodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["iATACode"]>
+
+  export type IATACodeSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country?: boolean
+    createdAt?: boolean
+  }
+
+  export type IATACodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "country" | "createdAt", ExtArgs["result"]["iATACode"]>
+
+  export type $IATACodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IATACode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      code: string
+      name: string
+      country: string
+      createdAt: Date
+    }, ExtArgs["result"]["iATACode"]>
+    composites: {}
+  }
+
+  type IATACodeGetPayload<S extends boolean | null | undefined | IATACodeDefaultArgs> = $Result.GetResult<Prisma.$IATACodePayload, S>
+
+  type IATACodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IATACodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IATACodeCountAggregateInputType | true
+    }
+
+  export interface IATACodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IATACode'], meta: { name: 'IATACode' } }
+    /**
+     * Find zero or one IATACode that matches the filter.
+     * @param {IATACodeFindUniqueArgs} args - Arguments to find a IATACode
+     * @example
+     * // Get one IATACode
+     * const iATACode = await prisma.iATACode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IATACodeFindUniqueArgs>(args: SelectSubset<T, IATACodeFindUniqueArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one IATACode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IATACodeFindUniqueOrThrowArgs} args - Arguments to find a IATACode
+     * @example
+     * // Get one IATACode
+     * const iATACode = await prisma.iATACode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IATACodeFindUniqueOrThrowArgs>(args: SelectSubset<T, IATACodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IATACode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeFindFirstArgs} args - Arguments to find a IATACode
+     * @example
+     * // Get one IATACode
+     * const iATACode = await prisma.iATACode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IATACodeFindFirstArgs>(args?: SelectSubset<T, IATACodeFindFirstArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first IATACode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeFindFirstOrThrowArgs} args - Arguments to find a IATACode
+     * @example
+     * // Get one IATACode
+     * const iATACode = await prisma.iATACode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IATACodeFindFirstOrThrowArgs>(args?: SelectSubset<T, IATACodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more IATACodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IATACodes
+     * const iATACodes = await prisma.iATACode.findMany()
+     * 
+     * // Get first 10 IATACodes
+     * const iATACodes = await prisma.iATACode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const iATACodeWithIdOnly = await prisma.iATACode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IATACodeFindManyArgs>(args?: SelectSubset<T, IATACodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a IATACode.
+     * @param {IATACodeCreateArgs} args - Arguments to create a IATACode.
+     * @example
+     * // Create one IATACode
+     * const IATACode = await prisma.iATACode.create({
+     *   data: {
+     *     // ... data to create a IATACode
+     *   }
+     * })
+     * 
+     */
+    create<T extends IATACodeCreateArgs>(args: SelectSubset<T, IATACodeCreateArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many IATACodes.
+     * @param {IATACodeCreateManyArgs} args - Arguments to create many IATACodes.
+     * @example
+     * // Create many IATACodes
+     * const iATACode = await prisma.iATACode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IATACodeCreateManyArgs>(args?: SelectSubset<T, IATACodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IATACodes and returns the data saved in the database.
+     * @param {IATACodeCreateManyAndReturnArgs} args - Arguments to create many IATACodes.
+     * @example
+     * // Create many IATACodes
+     * const iATACode = await prisma.iATACode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IATACodes and only return the `id`
+     * const iATACodeWithIdOnly = await prisma.iATACode.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IATACodeCreateManyAndReturnArgs>(args?: SelectSubset<T, IATACodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a IATACode.
+     * @param {IATACodeDeleteArgs} args - Arguments to delete one IATACode.
+     * @example
+     * // Delete one IATACode
+     * const IATACode = await prisma.iATACode.delete({
+     *   where: {
+     *     // ... filter to delete one IATACode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IATACodeDeleteArgs>(args: SelectSubset<T, IATACodeDeleteArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one IATACode.
+     * @param {IATACodeUpdateArgs} args - Arguments to update one IATACode.
+     * @example
+     * // Update one IATACode
+     * const iATACode = await prisma.iATACode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IATACodeUpdateArgs>(args: SelectSubset<T, IATACodeUpdateArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more IATACodes.
+     * @param {IATACodeDeleteManyArgs} args - Arguments to filter IATACodes to delete.
+     * @example
+     * // Delete a few IATACodes
+     * const { count } = await prisma.iATACode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IATACodeDeleteManyArgs>(args?: SelectSubset<T, IATACodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IATACodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IATACodes
+     * const iATACode = await prisma.iATACode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IATACodeUpdateManyArgs>(args: SelectSubset<T, IATACodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IATACodes and returns the data updated in the database.
+     * @param {IATACodeUpdateManyAndReturnArgs} args - Arguments to update many IATACodes.
+     * @example
+     * // Update many IATACodes
+     * const iATACode = await prisma.iATACode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more IATACodes and only return the `id`
+     * const iATACodeWithIdOnly = await prisma.iATACode.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IATACodeUpdateManyAndReturnArgs>(args: SelectSubset<T, IATACodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one IATACode.
+     * @param {IATACodeUpsertArgs} args - Arguments to update or create a IATACode.
+     * @example
+     * // Update or create a IATACode
+     * const iATACode = await prisma.iATACode.upsert({
+     *   create: {
+     *     // ... data to create a IATACode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IATACode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IATACodeUpsertArgs>(args: SelectSubset<T, IATACodeUpsertArgs<ExtArgs>>): Prisma__IATACodeClient<$Result.GetResult<Prisma.$IATACodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of IATACodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeCountArgs} args - Arguments to filter IATACodes to count.
+     * @example
+     * // Count the number of IATACodes
+     * const count = await prisma.iATACode.count({
+     *   where: {
+     *     // ... the filter for the IATACodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends IATACodeCountArgs>(
+      args?: Subset<T, IATACodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IATACodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IATACode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IATACodeAggregateArgs>(args: Subset<T, IATACodeAggregateArgs>): Prisma.PrismaPromise<GetIATACodeAggregateType<T>>
+
+    /**
+     * Group by IATACode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IATACodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IATACodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IATACodeGroupByArgs['orderBy'] }
+        : { orderBy?: IATACodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IATACodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIATACodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IATACode model
+   */
+  readonly fields: IATACodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IATACode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IATACodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IATACode model
+   */
+  interface IATACodeFieldRefs {
+    readonly id: FieldRef<"IATACode", 'Int'>
+    readonly code: FieldRef<"IATACode", 'String'>
+    readonly name: FieldRef<"IATACode", 'String'>
+    readonly country: FieldRef<"IATACode", 'String'>
+    readonly createdAt: FieldRef<"IATACode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IATACode findUnique
+   */
+  export type IATACodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * Filter, which IATACode to fetch.
+     */
+    where: IATACodeWhereUniqueInput
+  }
+
+  /**
+   * IATACode findUniqueOrThrow
+   */
+  export type IATACodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * Filter, which IATACode to fetch.
+     */
+    where: IATACodeWhereUniqueInput
+  }
+
+  /**
+   * IATACode findFirst
+   */
+  export type IATACodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * Filter, which IATACode to fetch.
+     */
+    where?: IATACodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IATACodes to fetch.
+     */
+    orderBy?: IATACodeOrderByWithRelationInput | IATACodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IATACodes.
+     */
+    cursor?: IATACodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IATACodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IATACodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IATACodes.
+     */
+    distinct?: IATACodeScalarFieldEnum | IATACodeScalarFieldEnum[]
+  }
+
+  /**
+   * IATACode findFirstOrThrow
+   */
+  export type IATACodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * Filter, which IATACode to fetch.
+     */
+    where?: IATACodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IATACodes to fetch.
+     */
+    orderBy?: IATACodeOrderByWithRelationInput | IATACodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IATACodes.
+     */
+    cursor?: IATACodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IATACodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IATACodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IATACodes.
+     */
+    distinct?: IATACodeScalarFieldEnum | IATACodeScalarFieldEnum[]
+  }
+
+  /**
+   * IATACode findMany
+   */
+  export type IATACodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * Filter, which IATACodes to fetch.
+     */
+    where?: IATACodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IATACodes to fetch.
+     */
+    orderBy?: IATACodeOrderByWithRelationInput | IATACodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IATACodes.
+     */
+    cursor?: IATACodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IATACodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IATACodes.
+     */
+    skip?: number
+    distinct?: IATACodeScalarFieldEnum | IATACodeScalarFieldEnum[]
+  }
+
+  /**
+   * IATACode create
+   */
+  export type IATACodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a IATACode.
+     */
+    data: XOR<IATACodeCreateInput, IATACodeUncheckedCreateInput>
+  }
+
+  /**
+   * IATACode createMany
+   */
+  export type IATACodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IATACodes.
+     */
+    data: IATACodeCreateManyInput | IATACodeCreateManyInput[]
+  }
+
+  /**
+   * IATACode createManyAndReturn
+   */
+  export type IATACodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many IATACodes.
+     */
+    data: IATACodeCreateManyInput | IATACodeCreateManyInput[]
+  }
+
+  /**
+   * IATACode update
+   */
+  export type IATACodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a IATACode.
+     */
+    data: XOR<IATACodeUpdateInput, IATACodeUncheckedUpdateInput>
+    /**
+     * Choose, which IATACode to update.
+     */
+    where: IATACodeWhereUniqueInput
+  }
+
+  /**
+   * IATACode updateMany
+   */
+  export type IATACodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IATACodes.
+     */
+    data: XOR<IATACodeUpdateManyMutationInput, IATACodeUncheckedUpdateManyInput>
+    /**
+     * Filter which IATACodes to update
+     */
+    where?: IATACodeWhereInput
+    /**
+     * Limit how many IATACodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IATACode updateManyAndReturn
+   */
+  export type IATACodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * The data used to update IATACodes.
+     */
+    data: XOR<IATACodeUpdateManyMutationInput, IATACodeUncheckedUpdateManyInput>
+    /**
+     * Filter which IATACodes to update
+     */
+    where?: IATACodeWhereInput
+    /**
+     * Limit how many IATACodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * IATACode upsert
+   */
+  export type IATACodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the IATACode to update in case it exists.
+     */
+    where: IATACodeWhereUniqueInput
+    /**
+     * In case the IATACode found by the `where` argument doesn't exist, create a new IATACode with this data.
+     */
+    create: XOR<IATACodeCreateInput, IATACodeUncheckedCreateInput>
+    /**
+     * In case the IATACode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IATACodeUpdateInput, IATACodeUncheckedUpdateInput>
+  }
+
+  /**
+   * IATACode delete
+   */
+  export type IATACodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+    /**
+     * Filter which IATACode to delete.
+     */
+    where: IATACodeWhereUniqueInput
+  }
+
+  /**
+   * IATACode deleteMany
+   */
+  export type IATACodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IATACodes to delete
+     */
+    where?: IATACodeWhereInput
+    /**
+     * Limit how many IATACodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * IATACode without action
+   */
+  export type IATACodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IATACode
+     */
+    select?: IATACodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the IATACode
+     */
+    omit?: IATACodeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -11830,6 +12948,17 @@ export namespace Prisma {
   };
 
   export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+
+
+  export const IATACodeScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    country: 'country',
+    createdAt: 'createdAt'
+  };
+
+  export type IATACodeScalarFieldEnum = (typeof IATACodeScalarFieldEnum)[keyof typeof IATACodeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12440,6 +13569,60 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
   }
 
+  export type IATACodeWhereInput = {
+    AND?: IATACodeWhereInput | IATACodeWhereInput[]
+    OR?: IATACodeWhereInput[]
+    NOT?: IATACodeWhereInput | IATACodeWhereInput[]
+    id?: IntFilter<"IATACode"> | number
+    code?: StringFilter<"IATACode"> | string
+    name?: StringFilter<"IATACode"> | string
+    country?: StringFilter<"IATACode"> | string
+    createdAt?: DateTimeFilter<"IATACode"> | Date | string
+  }
+
+  export type IATACodeOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IATACodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    code?: string
+    AND?: IATACodeWhereInput | IATACodeWhereInput[]
+    OR?: IATACodeWhereInput[]
+    NOT?: IATACodeWhereInput | IATACodeWhereInput[]
+    name?: StringFilter<"IATACode"> | string
+    country?: StringFilter<"IATACode"> | string
+    createdAt?: DateTimeFilter<"IATACode"> | Date | string
+  }, "id" | "code">
+
+  export type IATACodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+    _count?: IATACodeCountOrderByAggregateInput
+    _avg?: IATACodeAvgOrderByAggregateInput
+    _max?: IATACodeMaxOrderByAggregateInput
+    _min?: IATACodeMinOrderByAggregateInput
+    _sum?: IATACodeSumOrderByAggregateInput
+  }
+
+  export type IATACodeScalarWhereWithAggregatesInput = {
+    AND?: IATACodeScalarWhereWithAggregatesInput | IATACodeScalarWhereWithAggregatesInput[]
+    OR?: IATACodeScalarWhereWithAggregatesInput[]
+    NOT?: IATACodeScalarWhereWithAggregatesInput | IATACodeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"IATACode"> | number
+    code?: StringWithAggregatesFilter<"IATACode"> | string
+    name?: StringWithAggregatesFilter<"IATACode"> | string
+    country?: StringWithAggregatesFilter<"IATACode"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"IATACode"> | Date | string
+  }
+
   export type CarCreateInput = {
     model: string
     description: string
@@ -12985,6 +14168,59 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IATACodeCreateInput = {
+    code: string
+    name: string
+    country: string
+    createdAt?: Date | string
+  }
+
+  export type IATACodeUncheckedCreateInput = {
+    id?: number
+    code: string
+    name: string
+    country: string
+    createdAt?: Date | string
+  }
+
+  export type IATACodeUpdateInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IATACodeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IATACodeCreateManyInput = {
+    id?: number
+    code: string
+    name: string
+    country: string
+    createdAt?: Date | string
+  }
+
+  export type IATACodeUpdateManyMutationInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IATACodeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13568,6 +14804,38 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type IATACodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IATACodeAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IATACodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IATACodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IATACodeSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type RentACarCreateNestedManyWithoutCarInput = {
