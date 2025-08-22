@@ -113,3 +113,20 @@ model IATACode {
   country   String  
   createdAt DateTime @default(now())
 }
+
+model FlightPair {
+  id              Int       @id @default(autoincrement())
+  origin          String   
+  destination     String    
+  departureDate   DateTime  
+  returnDate      DateTime  
+  departureDay    String   
+  returnDay       String    
+  airline         String  
+  flightNumberOut String    
+  flightNumberBack String  
+  fareOut         Float     
+  fareBack        Float     
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
