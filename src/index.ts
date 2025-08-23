@@ -7,7 +7,6 @@ import routeractivities from "./routes/cityActivity";
 import path from "path";
 import carRoutes from "./routes/carRoutes";
 import { PrismaClient } from "./generated/prisma";
-import Rentrouter from "./routes/rentACarRoutes";
 import Routeractivities from "./routes/activityRoutes";
 import PackageRouter from "./routes/PackageRoutes";
 import RouterLocations from "./routes/location.routes";
@@ -16,6 +15,9 @@ import TesteRoutes from "./routes/TesteTounstes";
 import CarEmail from "./routes/CarEmailROutes";
 import Reservasrouter from "./routes/reservas";
 import iatarouter from "./routes/iata.routes";
+import Flightrouter from "./routes/FlightPairRoutes";
+import { searchAllFlights } from "./controller/FlightPairController";
+
 
 
 const app: Express = express();
@@ -31,6 +33,8 @@ app.use(cors({
 }));
 
 app.use('/api', carRoutes);
+
+app.use('/api', Flightrouter);
 
 app.use('/api', RouterLocations);
 

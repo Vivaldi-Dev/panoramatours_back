@@ -30,6 +30,7 @@ const TesteTounstes_1 = __importDefault(require("./routes/TesteTounstes"));
 const CarEmailROutes_1 = __importDefault(require("./routes/CarEmailROutes"));
 const reservas_1 = __importDefault(require("./routes/reservas"));
 const iata_routes_1 = __importDefault(require("./routes/iata.routes"));
+const FlightPairRoutes_1 = __importDefault(require("./routes/FlightPairRoutes"));
 const app = (0, express_1.default)();
 const PORT = 4000;
 app.use('/uploads', express_1.default.static(path_1.default.join(__dirname, 'uploads')));
@@ -40,6 +41,7 @@ app.use((0, cors_1.default)({
     credentials: true
 }));
 app.use('/api', carRoutes_1.default);
+app.use('/api', FlightPairRoutes_1.default);
 app.use('/api', location_routes_1.default);
 app.use('/api', EmailRoutes_1.default);
 app.use('/api', CarEmailROutes_1.default);
