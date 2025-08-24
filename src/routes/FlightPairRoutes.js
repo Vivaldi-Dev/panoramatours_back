@@ -8,5 +8,5 @@ const FlightPairController_1 = require("../controller/FlightPairController");
 const Flightrouter = express_1.default.Router();
 Flightrouter.post('/post-booking', FlightPairController_1.createFlightPair);
 Flightrouter.get('/search/LocalFlight', FlightPairController_1.searchLocalFlights);
-Flightrouter.get('/search-all-flights', FlightPairController_1.searchAllFlights);
+Flightrouter.post('/search-all-flights', FlightPairController_1.searchAllFlights);
 exports.default = Flightrouter;

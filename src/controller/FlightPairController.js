@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.searchLocalFlights = exports.searchAllFlights = exports.createFlightPair = void 0;
 const prisma_1 = require("../generated/prisma");
-const searchFlights_1 = require("../services/searchFlights");
 const prisma = new prisma_1.PrismaClient();
 const createFlightPair = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -42,28 +41,8 @@ const createFlightPair = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.createFlightPair = createFlightPair;
 const searchAllFlights = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
-        const { origin, destination, departureDate, returnDate, adults = 1, children = 0, nonStop, max = 5, currencyCode = "MZN", } = req.query;
-        let amadeusResults = [];
-        try {
-            const amadeusResponse = yield (0, searchFlights_1.searchFlights)({
-                originLocationCode: origin,
-                destinationLocationCode: destination,
-                departureDate: departureDate,
-                returnDate: returnDate,
-                adults: Number(adults),
-                children: Number(children),
-                nonStop: nonStop === "true",
-                max: Number(max),
-                currencyCode: currencyCode,
-            });
-            amadeusResults = ((_a = amadeusResponse.data) === null || _a === void 0 ? void 0 : _a.data) || []; // Atenção ao caminho correto da resposta do Amadeus
-        }
-        catch (err) {
-            console.warn("Amadeus não retornou resultados ou falhou:", err);
-        }
-        // Busca local usando intervalo de datas (dia inicial)
+        const { origin, destination, departureDate, returnDate, currencyCode = "MZN", } = req.query;
         const localResults = yield prisma.flightPair.findMany({
             where: Object.assign(Object.assign({ origin: origin, destination: destination }, (departureDate && {
                 departureDate: {
@@ -90,15 +69,13 @@ const searchAllFlights = (req, res) => __awaiter(void 0, void 0, void 0, functio
             flightNumberBack: f.flightNumberBack,
             fareOut: f.fareOut,
             fareBack: f.fareBack,
-            currency: "MZN",
+            currency: currencyCode,
         }));
-        const formattedAmadeus = amadeusResults.map((f) => (Object.assign({ type: "amadeus" }, f)));
-        const allFlights = [...formattedAmadeus, ...formattedLocal];
-        res.json(allFlights);
+        res.json(formattedLocal);
     }
     catch (error) {
-        console.error("Erro na busca de voos:", error);
-        res.status(500).json({ error: "Falha na busca de voos" });
+        console.error("Erro na busca de voos locais:", error);
+        res.status(500).json({ error: "Falha na busca de voos locais" });
     }
 });
 exports.searchAllFlights = searchAllFlights;

@@ -6,7 +6,7 @@ const Flightrouter = express.Router();
 
 Flightrouter.post('/post-booking', createFlightPair);
 Flightrouter.get('/search/LocalFlight', searchLocalFlights);
-Flightrouter.get('/search-all-flights', searchAllFlights);
+Flightrouter.post('/search-all-flights', searchAllFlights);
 
 
 
