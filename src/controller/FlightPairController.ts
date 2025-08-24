@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../generated/prisma";
+import { searchFlights } from "../services/searchFlights";
 
 const prisma = new PrismaClient();
 
@@ -44,6 +45,7 @@ export const createFlightPair = async (req: Request, res: Response): Promise<voi
   }
 };
 
+
 export const searchAllFlights = async (req: Request, res: Response): Promise<void> => {
   try {
     const {
@@ -54,6 +56,7 @@ export const searchAllFlights = async (req: Request, res: Response): Promise<voi
       currencyCode = "MZN",
     } = req.query;
 
+    // Busca voos locais (simulados) no banco
     const localResults = await prisma.flightPair.findMany({
       where: {
         origin: origin as string,
@@ -96,8 +99,6 @@ export const searchAllFlights = async (req: Request, res: Response): Promise<voi
     res.status(500).json({ error: "Falha na busca de voos locais" });
   }
 };
-
-
 export const searchLocalFlights = async (req: Request, res: Response): Promise<void> => {
   try {
     const { origin, destination, departureDate, returnDate } = req.query;

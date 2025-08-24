@@ -43,6 +43,7 @@ exports.createFlightPair = createFlightPair;
 const searchAllFlights = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { origin, destination, departureDate, returnDate, currencyCode = "MZN", } = req.query;
+        // Busca voos locais (simulados) no banco
         const localResults = yield prisma.flightPair.findMany({
             where: Object.assign(Object.assign({ origin: origin, destination: destination }, (departureDate && {
                 departureDate: {
