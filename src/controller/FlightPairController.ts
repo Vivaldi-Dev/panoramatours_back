@@ -78,20 +78,31 @@ export const searchAllFlights = async (req: Request, res: Response): Promise<voi
 
     console.log("Voos locais encontrados:", localResults);
 
-    const formattedLocal = localResults.map((f) => ({
-      type: "local",
-      id: f.id,
-      origin: f.origin,
-      destination: f.destination,
-      departureDate: f.departureDate,
-      returnDate: f.returnDate,
-      airline: f.airline,
-      flightNumberOut: f.flightNumberOut,
-      flightNumberBack: f.flightNumberBack,
-      fareOut: f.fareOut,
-      fareBack: f.fareBack,
-      currency: currencyCode,
-    }));
+    const formattedLocal = localResults.map((f) => {
+      const baseFlight = {
+        type: "local",
+        id: f.id,
+        origin: f.origin,
+        destination: f.destination,
+        departureDate: f.departureDate,
+        airline: f.airline,
+        flightNumberOut: f.flightNumberOut,
+        fareOut: f.fareOut,
+        currency: currencyCode,
+      };
+
+      // só adiciona volta se houver
+      if (f.returnDate && f.flightNumberBack && f.fareBack) {
+        return {
+          ...baseFlight,
+          returnDate: f.returnDate,
+          flightNumberBack: f.flightNumberBack,
+          fareBack: f.fareBack,
+        };
+      }
+
+      return baseFlight;
+    });
 
     res.json(formattedLocal);
   } catch (error) {
@@ -99,6 +110,7 @@ export const searchAllFlights = async (req: Request, res: Response): Promise<voi
     res.status(500).json({ error: "Falha na busca de voos locais" });
   }
 };
+
 export const searchLocalFlights = async (req: Request, res: Response): Promise<void> => {
   try {
     const { origin, destination, departureDate, returnDate } = req.query;
