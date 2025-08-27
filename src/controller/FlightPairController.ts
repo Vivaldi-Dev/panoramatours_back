@@ -54,29 +54,44 @@ export const searchAllFlights = async (req: Request, res: Response): Promise<voi
       departureDate,
       returnDate,
       currencyCode = "MZN",
-    } = req.query;
+    } = req.body;
 
-    // Busca voos locais (simulados) no banco
+    if (!origin || !destination) {
+      res.status(400).json({ error: "Origem e destino são obrigatórios" });
+      return;
+    }
+
+    const normalizedOrigin = origin.toString().trim().toUpperCase();
+    const normalizedDestination = destination.toString().trim().toUpperCase();
+
+    const getMonthRange = (dateString: string) => {
+      if (!dateString) return null;
+      
+      const date = new Date(dateString);
+      const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+      
+      return { gte: firstDay, lte: lastDay };
+    };
+
     const localResults = await prisma.flightPair.findMany({
       where: {
-        origin: origin as string,
-        destination: destination as string,
+        origin: normalizedOrigin,
+        destination: normalizedDestination,
         ...(departureDate && {
-          departureDate: {
-            gte: new Date(departureDate as string),
-            lt: new Date(new Date(departureDate as string).getTime() + 24 * 60 * 60 * 1000),
-          },
+          departureDate: getMonthRange(departureDate as string),
         }),
         ...(returnDate && {
-          returnDate: {
-            gte: new Date(returnDate as string),
-            lt: new Date(new Date(returnDate as string).getTime() + 24 * 60 * 60 * 1000),
-          },
+          returnDate: getMonthRange(returnDate as string),
         }),
       },
+      orderBy: [
+        { departureDate: 'asc' },
+        { fareOut: 'asc' }
+      ],
     });
 
-    console.log("Voos locais encontrados:", localResults);
+    console.log("Voos locais encontrados:", localResults.length, "resultados");
 
     const formattedLocal = localResults.map((f) => {
       const baseFlight = {
@@ -91,7 +106,6 @@ export const searchAllFlights = async (req: Request, res: Response): Promise<voi
         currency: currencyCode,
       };
 
-      // só adiciona volta se houver
       if (f.returnDate && f.flightNumberBack && f.fareBack) {
         return {
           ...baseFlight,

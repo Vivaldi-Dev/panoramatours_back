@@ -42,22 +42,33 @@ const createFlightPair = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.createFlightPair = createFlightPair;
 const searchAllFlights = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { origin, destination, departureDate, returnDate, currencyCode = "MZN", } = req.query;
-        // Busca voos locais (simulados) no banco
+        const { origin, destination, departureDate, returnDate, currencyCode = "MZN", } = req.body;
+        if (!origin || !destination) {
+            res.status(400).json({ error: "Origem e destino são obrigatórios" });
+            return;
+        }
+        const normalizedOrigin = origin.toString().trim().toUpperCase();
+        const normalizedDestination = destination.toString().trim().toUpperCase();
+        const getMonthRange = (dateString) => {
+            if (!dateString)
+                return null;
+            const date = new Date(dateString);
+            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+            const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+            return { gte: firstDay, lte: lastDay };
+        };
         const localResults = yield prisma.flightPair.findMany({
-            where: Object.assign(Object.assign({ origin: origin, destination: destination }, (departureDate && {
-                departureDate: {
-                    gte: new Date(departureDate),
-                    lt: new Date(new Date(departureDate).getTime() + 24 * 60 * 60 * 1000),
-                },
+            where: Object.assign(Object.assign({ origin: normalizedOrigin, destination: normalizedDestination }, (departureDate && {
+                departureDate: getMonthRange(departureDate),
             })), (returnDate && {
-                returnDate: {
-                    gte: new Date(returnDate),
-                    lt: new Date(new Date(returnDate).getTime() + 24 * 60 * 60 * 1000),
-                },
+                returnDate: getMonthRange(returnDate),
             })),
+            orderBy: [
+                { departureDate: 'asc' },
+                { fareOut: 'asc' }
+            ],
         });
-        console.log("Voos locais encontrados:", localResults);
+        console.log("Voos locais encontrados:", localResults.length, "resultados");
         const formattedLocal = localResults.map((f) => {
             const baseFlight = {
                 type: "local",
@@ -70,7 +81,6 @@ const searchAllFlights = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 fareOut: f.fareOut,
                 currency: currencyCode,
             };
-            // só adiciona volta se houver
             if (f.returnDate && f.flightNumberBack && f.fareBack) {
                 return Object.assign(Object.assign({}, baseFlight), { returnDate: f.returnDate, flightNumberBack: f.flightNumberBack, fareBack: f.fareBack });
             }
